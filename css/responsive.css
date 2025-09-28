@@ -4,18 +4,10 @@
 @media (max-width: 992px) {
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
-
-    .about-content {
-        grid-template-columns: 1fr;
-        grid-template-areas: "image" "text";
-        text-align: center;
-    }
     
     .skills-grid {
         grid-template-columns: 1fr;
     }
-    
-    /* STACK PORTFOLIO ON TABLET */
     .portfolio-showcase {
         flex-direction: column;
         align-items: center;
@@ -26,72 +18,72 @@
         width: 100%;
         max-width: 600px;
     }
-
-    .contact-form-layout {
-        grid-template-columns: 1fr;
-        grid-template-areas: "top-left" "top-right" "bottom";
-    }
 }
 
 
 /* --- Mobile Styles --- */
 @media (max-width: 768px) {
-    section, header { padding: 4rem 0; }
-    .container { padding: 0 1.5rem; }
+    section, header {
+        padding: 4rem 0;
+    }
+
+    .container {
+        padding: 0 1.5rem;
+    }
     
     .hero-content .profile-image {
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
     }
 
-    /* ABOUT SECTION MOBILE */
+    /* --- ABOUT SECTION MOBILE LAYOUT --- */
     .about-content {
-        /* Re-order grid for mobile: image on top, then text */
-        grid-template-areas: "image" "text";
-    }
-    .about-header {
-        /* This element is not in use, hiding it. */
-        display: none;
-    }
-    .about-text h2 {
-        /* Ensure the h2 inside the text block is visible */
-        display: block;
-    }
-
-
-    /* PORTFOLIO SECTION MOBILE - REFINED */
-    .portfolio-left {
-        max-width: 100%;
-    }
-    .project-info {
+        display: grid;
+        grid-template-columns: 1fr; /* Set to a single column */
+        /* Define the vertical stacking order */
+        grid-template-areas: 
+            "header"
+            "image"
+            "text";
         text-align: center;
-        margin-top: 1.5rem;
+        gap: 2rem; /* Add space between the stacked items */
     }
-    .project-list {
+    .about-header { 
+        display: block; /* Show the mobile-specific header */
+        grid-area: header;
+    }
+    .about-image {
+        grid-area: image;
+    }
+    .about-text { 
+        grid-area: text;
+        text-align: left; /* Keep text left-aligned for readability */
+    }
+    .desktop-only-h2 {
+        display: none; /* Hide the desktop-specific header on mobile */
+    }
+
+    /* --- PORTFOLIO SECTION MOBILE LAYOUT --- */
+    .portfolio-showcase {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .portfolio-left { order: 1; }
+    .project-info { 
+        order: 2;
+        text-align: center;
+    }
+    .project-list { 
+        order: 3;
         flex-direction: row;
         justify-content: flex-start;
         overflow-x: auto;
         padding-bottom: 1rem;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: thin;
-        max-width: 100%;
-    }
-    .project-list::-webkit-scrollbar {
-        height: 5px;
-    }
-    .project-list::-webkit-scrollbar-thumb {
-        background-color: var(--primary-color);
-        border-radius: 10px;
     }
     .project-list-item {
-        flex: 0 0 auto;
+        flex-shrink: 0;
         min-width: 200px;
-    }
-
-    /* CONTACT SECTION MOBILE */
-    .contact-form-layout {
-        display: flex;
-        flex-direction: column;
     }
 }
 
