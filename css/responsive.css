@@ -76,7 +76,7 @@
     }
     .project-list { 
         order: 3;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: flex-start;
         overflow-x: auto;
         padding-bottom: 1rem;
