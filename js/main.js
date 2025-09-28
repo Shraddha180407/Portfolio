@@ -51,16 +51,19 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             title: "Basti ki Pathshala - NGO Website",
             description: "A modern web presence for an NGO helping children break the cycle of poverty.",
-            video: "assets/videos/project1.mp4"
+            // CORRECTED PATH
+            video: "assets/videos/project1.mp4" 
         },
         {
             title: "Fake News Detection",
             description: "An AI-powered application to identify misinformation.",
+            // CORRECTED PATH
             video: "assets/videos/project2.mp4"
         },
         {
             title: "ARTX",
             description: "Different art styles and their impact.",
+            // CORRECTED PATH
             video: "assets/videos/project3.mp4"
         }
     ];
