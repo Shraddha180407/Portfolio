@@ -1,3 +1,6 @@
+Portfolio
+An interactive single-page portfolio featuring a particle constellation hero, on-scroll animations, and a dynamic project showcase. Built with vanilla HTML, CSS, and JavaScript
+
 Shraddha Gautam - Personal Portfolio Website
 View Live Demo <!-- <-- IMPORTANT: Replace with your live Netlify URL -->
 About The Project
