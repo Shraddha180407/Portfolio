@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shraddha Gautam - Portfolio</title>
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/waves.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <header id="hero">
+    <canvas id="particle-canvas"></canvas> 
+    <div class="hero-content-parallax">
+      <div class="hero-content">
+          <img src="https://placehold.co/200x200/EFEFEF/333333?text=Shraddha" alt="Profile Image" class="profile-image">
+          <h1>Shraddha Gautam</h1>
+          <p class="subtitle">Computer Science Student & Aspiring Developer</p>
+      </div>
+    </div>
+    <a href="#about" class="scroll-indicator">
+      <span></span>
+    </a>
+    <div class="wave-divider"></div>
+  </header>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="container">
+      <!-- Added animation class here -->
+      <div class="about-content animate-on-scroll">
+        <div class="about-text">
+            <h2>About Me</h2>
+            <p>Hi, I’m Shraddha Gautam — a curious and creative Computer Science student at the University of Delhi. I enjoy exploring the intersection of technology, design, and problem-solving. My main interests lie in AI/ML, data analysis, and full-stack development, and I’m constantly learning and building projects that challenge me to grow.</p>
+            <p>I’ve worked on projects ranging from AI-powered applications (like Fake News Detection) to web development and creative designs. Hackathons, freelance projects, and internships excite me because they push me to apply theory into practice and create solutions that make an impact.</p>
+            <p>Beyond coding, I enjoy expressing my creativity through design, sketching, and 3D modeling in Blender, which helps me bring a unique perspective to my technical work.</p>
+            <ul class="highlights">
+                <li>🔹 Currently building my portfolio with real-world projects.</li>
+                <li>🔹 Looking for opportunities to collaborate, freelance, and innovate.</li>
+                <li>🔹 Long-term goal: contribute to cutting-edge technology.</li>
+            </ul>
+            <a href="assets/cv.pdf" download class="btn">Download CV</a>
+        </div>
+        <div class="about-image">
+             <img src="https://placehold.co/400x400/CCCCCC/FFFFFF?text=Illustration" alt="About Me Illustration">
+        </div>
+      </div>
+    </div>
+    <div class="wave-divider" style="transform: scaleX(-1) rotate(180deg);"></div>
+  </section>
+
+
+  <!-- Portfolio Section -->
+  <section id="portfolio">
+    <div class="container">
+        <h2 class="animate-on-scroll">Projects</h2>
+        <div class="portfolio-showcase animate-on-scroll">
+            
+            <div class="portfolio-left">
+                <div class="project-display">
+                    <!-- This is the moving background highlight -->
+                    <div class="project-highlight-bg"></div>
+                    
+                    <div class="project-video-wrapper">
+                        <video src="assets\videos\project1.mp4" class="project-video" autoplay loop muted playsinline key="video1"></video>
+                    </div>
+                </div>
+
+                <div class="project-info">
+                    <h3 class="project-title">Basti ki Pathshala - NGO Website</h3>
+                    <p class="project-description">A modern web presence for an NGO helping children break the cycle of poverty.</p>
+                </div>
+            </div>
+
+            <div class="project-list">
+                <button class="project-list-item active" data-project="0">
+                    <div class="item-icon">NGO</div>
+                    <div class="item-text">
+                        <h4>Basti ki Pathshala</h4>
+                        <span>NGO Website</span>
+                    </div>
+                </button>
+                <button class="project-list-item" data-project="1">
+                    <div class="item-icon">AI</div>
+                    <div class="item-text">
+                        <h4>Fake News Detection</h4>
+                        <span>An AI-powered application to identify misinformation.</span>
+                    </div>
+                </button>
+                <button class="project-list-item" data-project="2">
+                     <div class="item-icon">Web</div>
+                     <div class="item-text">
+                        <h4>ARTX</h4>
+                        <span>Creative Design</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="wave-divider"></div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills">
+    <div class="container">
+        <h2>Skills & Tools</h2>
+        <div class="skills-grid">
+             <!-- Added animation class to each skill -->
+            <div class="skill animate-on-scroll">
+                <div class="skill-name">HTML & CSS</div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="90%"></div></div>
+            </div>
+            <div class="skill animate-on-scroll">
+                <div class="skill-name">JavaScript</div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="80%"></div></div>
+            </div>
+            <div class="skill animate-on-scroll">
+                <div class="skill-name">React</div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="70%"></div></div>
+            </div>
+            <div class="skill animate-on-scroll">
+                <div class="skill-name">Python (AI/ML)</div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="75%"></div></div>
+            </div>
+            <div class="skill animate-on-scroll">
+                <div class="skill-name">Photoshop & Figma</div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="65%"></div></div>
+            </div>
+            <div class="skill animate-on-scroll">
+                <div class="skill-name">Blender</div>
+                <div class="skill-bar"><div class="skill-bar-fill" data-width="45%"></div></div>
+            </div>
+        </div>
+    </div>
+    <div class="wave-divider" style="transform: scaleX(-1) rotate(180deg);"></div>
+  </section>
+
+  <!-- Contact Section -->
+  <footer id="contact">
+    <div class="container">
+        <h2 class="animate-on-scroll">Contact Me</h2>
+        <form id="contact-form" class="animate-on-scroll">
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+        <div class="contact-info">
+            <p>Email: <a href="mailto:shraddha180407@gmail.com">Shraddha180407@gmail.com</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/shraddha-gautam-0271a0329/" target="_blank">Shraddha Gautam</a></p>
+            <p>GitHub: <a href="https://github.com/Shraddha180407" target="_blank">Shraddha180407</a></p>
+        </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/main.js"></script>
+  <!-- No longer need skills.js -->
+  <script src="js/particles.js"></script> 
+</body>
+</html>
+
+
+
+

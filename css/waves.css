@@ -1,0 +1,43 @@
+/* css/waves.css */
+
+.wave-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.wave-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 120px;
+}
+
+#hero .wave-divider {
+    /* Special animated wave for the hero section */
+    height: 120px;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-5.59,42.85 C158.33,165.73 352.00,-49.98 506.41,42.85 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: rgb(249, 250, 251);"></path></svg>');
+    background-repeat: repeat-x;
+    background-size: 200% 120px;
+    animation: wave-flow 10s linear infinite;
+}
+
+@keyframes wave-flow {
+    0% { background-position: 0 0; }
+    100% { background-position: -100% 0; }
+}
+
+/* Static wave for other sections */
+section .wave-divider {
+    height: 120px;
+    background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-5.59,42.85 C158.33,165.73 352.00,-49.98 506.41,42.85 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: rgb(31, 41, 55);"></path></svg>');
+}
+
+/* Flip the color for sections with dark backgrounds that need a light wave */
+#portfolio .wave-divider, #contact .wave-divider {
+     background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 500 150" preserveAspectRatio="none" style="height: 100%; width: 100%;"><path d="M-5.59,42.85 C158.33,165.73 352.00,-49.98 506.41,42.85 L500.00,150.00 L0.00,150.00 Z" style="stroke: none; fill: rgb(249, 250, 251);"></path></svg>');
+}
+
