@@ -1,52 +1,97 @@
 /* css/responsive.css */
 
-/* Tablets and smaller */
-@media (max-width: 768px) {
+/* --- Tablet Styles --- */
+@media (max-width: 992px) {
     h1 { font-size: 2.5rem; }
     h2 { font-size: 2rem; }
 
-    .container {
-        padding: 0 1rem;
-    }
-
     .about-content {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+        grid-template-areas: "image" "text";
+        text-align: center;
     }
-
-    .about-image {
-        margin-top: 2rem;
-    }
-
+    
     .skills-grid {
         grid-template-columns: 1fr;
     }
+    
+    /* STACK PORTFOLIO ON TABLET */
+    .portfolio-showcase {
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+    }
+    .portfolio-left, .project-list {
+        flex-basis: auto;
+        width: 100%;
+        max-width: 600px;
+    }
 
-    .portfolio-grid {
+    .contact-form-layout {
         grid-template-columns: 1fr;
+        grid-template-areas: "top-left" "top-right" "bottom";
     }
 }
 
-/* Mobile devices */
-@media (max-width: 480px) {
-    #hero {
-      padding-top: 4rem;
-      padding-bottom: 100px;
-    }
 
+/* --- Mobile Styles --- */
+@media (max-width: 768px) {
+    section, header { padding: 4rem 0; }
+    .container { padding: 0 1.5rem; }
+    
     .hero-content .profile-image {
-        width: 140px;
-        height: 140px;
+        width: 200px;
+        height: 200px;
     }
 
-    h1 { font-size: 2rem; }
-    
-    .btn {
-        padding: 0.7rem 1.2rem;
-        font-size: 0.9rem;
+    /* ABOUT SECTION MOBILE */
+    .about-content {
+        /* Re-order grid for mobile: image on top, then text */
+        grid-template-areas: "image" "text";
     }
-    
-    section, header {
-        padding: 4rem 0;
+    .about-header {
+        /* This element is not in use, hiding it. */
+        display: none;
+    }
+    .about-text h2 {
+        /* Ensure the h2 inside the text block is visible */
+        display: block;
+    }
+
+
+    /* PORTFOLIO SECTION MOBILE - REFINED */
+    .portfolio-left {
+        max-width: 100%;
+    }
+    .project-info {
+        text-align: center;
+        margin-top: 1.5rem;
+    }
+    .project-list {
+        flex-direction: row;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 1rem;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        max-width: 100%;
+    }
+    .project-list::-webkit-scrollbar {
+        height: 5px;
+    }
+    .project-list::-webkit-scrollbar-thumb {
+        background-color: var(--primary-color);
+        border-radius: 10px;
+    }
+    .project-list-item {
+        flex: 0 0 auto;
+        min-width: 200px;
+    }
+
+    /* CONTACT SECTION MOBILE */
+    .contact-form-layout {
+        display: flex;
+        flex-direction: column;
     }
 }
 

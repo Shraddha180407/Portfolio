@@ -19,7 +19,8 @@
     <canvas id="particle-canvas"></canvas> 
     <div class="hero-content-parallax">
       <div class="hero-content">
-          <img src="https://placehold.co/200x200/EFEFEF/333333?text=Shraddha" alt="Profile Image" class="profile-image">
+          <!-- UPDATED IMAGE PATH -->
+          <img src="assets/image/profile.jpg" alt="Profile Image" class="profile-image">
           <h1>Shraddha Gautam</h1>
           <p class="subtitle">Computer Science Student & Aspiring Developer</p>
       </div>
@@ -45,10 +46,13 @@
                 <li>🔹 Looking for opportunities to collaborate, freelance, and innovate.</li>
                 <li>🔹 Long-term goal: contribute to cutting-edge technology.</li>
             </ul>
-            <a href="assets/cv.pdf" download class="btn">Download CV</a>
+            <!-- UPDATED CV PATH -->
+             <br>
+            <a href="assets/cv/Shraddha_Gautam_CV.pdf" download class="btn">Download CV</a>
         </div>
         <div class="about-image">
-             <img src="https://placehold.co/400x400/CCCCCC/FFFFFF?text=Illustration" alt="About Me Illustration">
+             <!-- UPDATED IMAGE PATH -->
+             <img src="assets/image/about.jpg" alt="About Me Illustration">
         </div>
       </div>
     </div>
@@ -94,11 +98,11 @@
                     </div>
                 </button>
                 <button class="project-list-item" data-project="2">
-                      <div class="item-icon">Web</div>
-                      <div class="item-text">
-                          <h4>ARTX</h4>
-                          <span>Creative Design</span>
-                      </div>
+                     <div class="item-icon">Web</div>
+                     <div class="item-text">
+                         <h4>ARTX</h4>
+                         <span>Creative Design</span>
+                     </div>
                 </button>
             </div>
         </div>
@@ -145,7 +149,8 @@
   <footer id="contact">
     <div class="container">
         <h2 class="animate-on-scroll">Contact Me</h2>
-        <form id="contact-form" class="animate-on-scroll">
+        <!-- UPDATED FORM TAG TO WORK WITH NETLIFY -->
+        <form name="contact" method="POST" data-netlify="true" id="contact-form" class="animate-on-scroll">
             <input type="text" name="name" placeholder="Your Name" required>
             <input type="email" name="email" placeholder="Your Email" required>
             <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
