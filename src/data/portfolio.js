@@ -56,6 +56,7 @@ export const projects = [
     name: "MoodBowl",
     badge: "Research & AI Voice UI",
     status: "Research paper in preparation",
+    previewGif: "/previews/moodbowl.gif",   // ← drop your GIF here
     problem: "Food ordering platforms ignore the user's emotional state and make navigation cumbersome.",
     solution: "A voice-first food ordering system that reads user emotion through speech and gives personalized recommendations.",
     highlights: [
@@ -75,6 +76,7 @@ export const projects = [
     name: "SaaS Landing Page A/B Tester",
     badge: "Analytics & Product",
     status: "Production Tool",
+    previewGif: "/previews/ab-tester.gif",   // ← drop your GIF here
     problem: "Businesses often don't know which landing page variant converts better without costly third-party suites.",
     solution: "A lightweight A/B testing platform that measures visitor click-through rates and surfaces the winning variant with live statistical charts.",
     highlights: [
@@ -94,6 +96,7 @@ export const projects = [
     name: "TruthLens — Fake News Detection",
     badge: "NLP Pipeline",
     status: "Machine Learning Model",
+    previewGif: "/previews/truthlens.gif",   // ← drop your GIF here
     problem: "Online misinformation spreads rapidly and is difficult to identify manually across unstructured articles.",
     solution: "An NLP classification pipeline that ingests news articles, extracts linguistic features via TF-IDF, and flags falsified claims.",
     highlights: [
@@ -113,6 +116,7 @@ export const projects = [
     name: "Basti Ki Pathshala",
     badge: "Civic & NGO",
     status: "NGO Platform",
+    previewGif: "/previews/basti-pathshala.gif",   // ← drop your GIF here
     problem: "The grassroots educational NGO needed an accessible online presence for donors, volunteers, and student enrollment.",
     solution: "A responsive, accessible web platform that showcases field programs, volunteer onboarding, and donation avenues.",
     highlights: [
@@ -126,6 +130,7 @@ export const projects = [
     githubUrl: "https://github.com/Shraddha180407/Basti-Ki-Pathshala",
   },
 ];
+
 
 export const techBento = [
   {

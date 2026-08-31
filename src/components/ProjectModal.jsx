@@ -73,6 +73,23 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
             {/* Modal Body */}
             <div className="p-6 sm:p-7 overflow-y-auto space-y-6 scrollbar-thin">
+
+              {/* GIF / Video Preview */}
+              {project.previewGif && (
+                <div className="w-full rounded-xl overflow-hidden border border-border/60 bg-[#0d0c16]">
+                  <div className="relative w-full aspect-video">
+                    <img
+                      src={project.previewGif}
+                      alt={`${project.name} demo`}
+                      className="w-full h-full object-cover"
+                    />
+                    <span className="absolute bottom-2.5 right-2.5 text-[0.65rem] font-mono text-ink-faint bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
+                      ▶ Demo Preview
+                    </span>
+                  </div>
+                </div>
+              )}
+
               {/* Title & Tagline */}
               <div>
                 <h3 className="text-[1.6rem] sm:text-[1.8rem] font-bold text-ink mb-2">
@@ -93,6 +110,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                     {project.problem}
                   </p>
                 </div>
+
 
                 <div className="bg-bg-raised/70 border border-border rounded-md2 p-4">
                   <div className="flex items-center gap-2 text-ink-faint text-[0.75rem] uppercase tracking-wider font-semibold mb-2">

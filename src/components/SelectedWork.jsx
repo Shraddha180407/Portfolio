@@ -133,64 +133,96 @@ function FeaturedCard({ onInspect }) {
 function ProjectCard({ project, onInspect }) {
   const IconComponent = ICON_MAP[project.icon] || Folder;
   const tiltRef = useTilt(5);
+  const [gifPlaying, setGifPlaying] = useState(false);
 
   return (
     <div
       ref={tiltRef}
-      className="reveal bg-bg-card border border-border rounded-md2 p-6 flex flex-col transition-all duration-300 hover:border-violet-bright/50 hover:shadow-[0_12px_36px_-10px_rgba(139,92,246,0.2)] group"
+      className="reveal bg-bg-card border border-border rounded-md2 flex flex-col transition-all duration-300 hover:border-violet-bright/50 hover:shadow-[0_12px_36px_-10px_rgba(139,92,246,0.2)] group overflow-hidden"
+      onMouseEnter={() => setGifPlaying(true)}
+      onMouseLeave={() => setGifPlaying(false)}
     >
-      <div className="flex items-center justify-between mb-4">
-        <div className="w-[42px] h-[42px] rounded-[10px] flex items-center justify-center text-violet-bright bg-violet/[0.12] border border-violet/25 group-hover:scale-105 transition-transform">
-          <IconComponent size={20} />
+      {/* GIF Preview */}
+      {project.previewGif && (
+        <div className="relative w-full aspect-video bg-[#0d0c16] overflow-hidden border-b border-border/60">
+          <img
+            src={project.previewGif}
+            alt={`${project.name} preview`}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
+              gifPlaying ? "opacity-100" : "opacity-70"
+            }`}
+            style={{ imageRendering: "auto" }}
+          />
+          {/* Play hint badge */}
+          {!gifPlaying && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-[0.7rem] font-medium text-ink-dim bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                Hover to play
+              </span>
+            </div>
+          )}
+          {/* Category pill overlay */}
+          <span className="absolute top-2.5 left-2.5 text-[0.65rem] font-semibold text-violet-bright bg-[#0e0e18]/80 backdrop-blur-sm border border-violet/25 px-2 py-0.5 rounded-full">
+            {project.category}
+          </span>
         </div>
-        {project.status && (
-          <span className="text-[0.68rem] text-coral-bright bg-coral/10 border border-coral/25 px-2.5 py-1 rounded-full w-fit">
-            {project.status}
-          </span>
-        )}
-      </div>
+      )}
 
-      <h4 className="text-[1.2rem] font-bold mb-2">{project.name}</h4>
-      
-      <div className="text-[0.72rem] font-semibold text-ink-faint uppercase tracking-wider mt-1 mb-1">
-        Problem
-      </div>
-      <div className="text-[0.86rem] text-ink-dim leading-relaxed">{project.problem}</div>
-      
-      <div className="text-[0.72rem] font-semibold text-ink-faint uppercase tracking-wider mt-3 mb-1">
-        Solution
-      </div>
-      <div className="text-[0.86rem] text-ink-dim leading-relaxed">{project.solution}</div>
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-center justify-between mb-4">
+          <div className="w-[42px] h-[42px] rounded-[10px] flex items-center justify-center text-violet-bright bg-violet/[0.12] border border-violet/25 group-hover:scale-105 transition-transform">
+            <IconComponent size={20} />
+          </div>
+          {project.status && (
+            <span className="text-[0.68rem] text-coral-bright bg-coral/10 border border-coral/25 px-2.5 py-1 rounded-full w-fit">
+              {project.status}
+            </span>
+          )}
+        </div>
 
-      <div className="flex flex-wrap gap-1.5 my-4">
-        {project.tags.map((t) => (
-          <span key={t} className="text-[0.7rem] font-mono text-ink-faint bg-white/[0.04] px-2 py-1 rounded-md">
-            {t}
-          </span>
-        ))}
-      </div>
+        <h4 className="text-[1.2rem] font-bold mb-2">{project.name}</h4>
+        
+        <div className="text-[0.72rem] font-semibold text-ink-faint uppercase tracking-wider mt-1 mb-1">
+          Problem
+        </div>
+        <div className="text-[0.86rem] text-ink-dim leading-relaxed">{project.problem}</div>
+        
+        <div className="text-[0.72rem] font-semibold text-ink-faint uppercase tracking-wider mt-3 mb-1">
+          Solution
+        </div>
+        <div className="text-[0.86rem] text-ink-dim leading-relaxed">{project.solution}</div>
 
-      <div className="mt-auto pt-3 border-t border-border/50 flex items-center justify-between gap-3">
-        <button
-          onClick={() => onInspect(project)}
-          className="text-[0.82rem] font-medium text-violet-bright hover:underline inline-flex items-center gap-1"
-        >
-          <Layers size={13} /> View Architecture & Specs
-        </button>
-        {project.githubUrl && (
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[0.8rem] font-medium text-ink-faint group-hover:text-ink transition-colors inline-flex items-center gap-1 shrink-0"
+        <div className="flex flex-wrap gap-1.5 my-4">
+          {project.tags.map((t) => (
+            <span key={t} className="text-[0.7rem] font-mono text-ink-faint bg-white/[0.04] px-2 py-1 rounded-md">
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div className="mt-auto pt-3 border-t border-border/50 flex items-center justify-between gap-3">
+          <button
+            onClick={() => onInspect(project)}
+            className="text-[0.82rem] font-medium text-violet-bright hover:underline inline-flex items-center gap-1"
           >
-            GitHub <ArrowUpRight size={13} />
-          </a>
-        )}
+            <Layers size={13} /> View Architecture & Specs
+          </button>
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[0.8rem] font-medium text-ink-faint group-hover:text-ink transition-colors inline-flex items-center gap-1 shrink-0"
+            >
+              GitHub <ArrowUpRight size={13} />
+            </a>
+          )}
+        </div>
       </div>
     </div>
   );
 }
+
 
 export default function SelectedWork() {
   const [activeCategory, setActiveCategory] = useState("All");
