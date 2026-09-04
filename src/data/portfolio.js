@@ -78,7 +78,7 @@ export const projects = [
     name: "SaaS Landing Page A/B Tester",
     badge: "Analytics & Product",
     status: "Production Tool",
-    previewGif: "/previews/ab-tester.gif",
+    previewVideo: "/previews/A-B TESTER.mp4",
     problem: "Businesses often don't know which landing page variant converts better without costly third-party suites.",
     solution: "A lightweight A/B testing platform that measures visitor click-through rates and surfaces the winning variant with live statistical charts.",
     highlights: [
@@ -118,7 +118,7 @@ export const projects = [
     name: "Basti Ki Pathshala",
     badge: "Civic & NGO",
     status: "NGO Platform",
-    previewGif: "/previews/BastikiPathshala.gif",
+    previewVideo: "/previews/Basti ki Pathshala.mp4",
     problem: "The grassroots educational NGO needed an accessible online presence for donors, volunteers, and student enrollment.",
     solution: "A responsive, accessible web platform that showcases field programs, volunteer onboarding, and donation avenues.",
     highlights: [
