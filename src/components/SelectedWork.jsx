@@ -133,31 +133,44 @@ function FeaturedCard({ onInspect }) {
 function ProjectCard({ project, onInspect }) {
   const IconComponent = ICON_MAP[project.icon] || Folder;
   const tiltRef = useTilt(5);
-  const [gifPlaying, setGifPlaying] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [vidRef, setVidRef] = useState(null);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    if (vidRef) { vidRef.currentTime = 0; vidRef.play(); }
+  };
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    if (vidRef) { vidRef.pause(); vidRef.currentTime = 0; }
+  };
 
   return (
     <div
       ref={tiltRef}
       className="reveal bg-bg-card border border-border rounded-md2 flex flex-col transition-all duration-300 hover:border-violet-bright/50 hover:shadow-[0_12px_36px_-10px_rgba(139,92,246,0.2)] group overflow-hidden"
-      onMouseEnter={() => setGifPlaying(true)}
-      onMouseLeave={() => setGifPlaying(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* GIF Preview */}
-      {project.previewGif && (
+      {/* MP4 Video Preview */}
+      {project.previewVideo && (
         <div className="relative w-full aspect-video bg-[#0d0c16] overflow-hidden border-b border-border/60">
-          <img
-            src={project.previewGif}
-            alt={`${project.name} preview`}
+          <video
+            ref={setVidRef}
+            src={project.previewVideo}
+            muted
+            playsInline
+            loop
+            preload="metadata"
             className={`w-full h-full object-cover transition-opacity duration-300 ${
-              gifPlaying ? "opacity-100" : "opacity-70"
+              isHovered ? "opacity-100" : "opacity-70"
             }`}
-            style={{ imageRendering: "auto" }}
           />
           {/* Play hint badge */}
-          {!gifPlaying && (
+          {!isHovered && (
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-[0.7rem] font-medium text-ink-dim bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-                Hover to play
+                ▶ Hover to play
               </span>
             </div>
           )}

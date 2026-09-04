@@ -45,6 +45,22 @@ export default function CivicIndiaCaseStudy() {
             ))}
           </div>
         </div>
+        {featuredProject.previewVideo ? (
+          <div
+            ref={tiltRef}
+            className="rounded-[18px] overflow-hidden border border-border-strong shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)] transition-all hover:border-violet-bright/50"
+          >
+            <video
+              src={featuredProject.previewVideo}
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              className="w-full h-full object-cover"
+            />
+          </div>
+        ) : (
         <div
           ref={tiltRef}
           className="border border-border-strong rounded-[18px] p-6 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)] transition-all hover:border-violet-bright/50"
@@ -69,6 +85,7 @@ export default function CivicIndiaCaseStudy() {
             ))}
           </div>
         </div>
+        )}
       </div>
 
       <div className="reveal grid md:grid-cols-2 gap-8 sm:gap-12 py-9 border-t border-border">

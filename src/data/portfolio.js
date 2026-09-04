@@ -7,8 +7,9 @@ export const profile = {
   email: "shraddhagautam2005@gmail.com",
   github: "https://github.com/ShraddhaGautam",
   githubHandle: "github.com/ShraddhaGautam",
-  linkedin: "https://linkedin.com/in/shraddha-gautam",
-  linkedinHandle: "linkedin.com/in/shraddha-gautam",
+  linkedin: "https://linkedin.com/in/shraddha-gautam679/",
+  linkedinHandle: "linkedin.com/in/shraddha-gautam679",
+  portfolioUrl: "https://shraddhagautam.netlify.app/",
   resumeUrl: "/Shraddha Gautam — Resume.pdf",
   photoUrl: null,
 };
@@ -24,6 +25,7 @@ export const featuredProject = {
   name: "CivicIndia",
   badge: "★ Featured Project",
   category: "Full-Stack",
+  previewVideo: "/previews/civicindia.mp4",   // ← drop your CivicIndia MP4 here
   problem: "Many citizens don't know which government schemes, jobs, or exams they qualify for.",
   solution: "A production-ready platform that brings together schemes, jobs, exams, and an eligibility checker in one place.",
   highlights: [
@@ -56,7 +58,7 @@ export const projects = [
     name: "MoodBowl",
     badge: "Research & AI Voice UI",
     status: "Research paper in preparation",
-    previewGif: "/previews/moodbowl.gif",   // ← drop your GIF here
+    previewVideo: "/previews/moodbowl.mp4",   // ← drop your MoodBowl MP4 here
     problem: "Food ordering platforms ignore the user's emotional state and make navigation cumbersome.",
     solution: "A voice-first food ordering system that reads user emotion through speech and gives personalized recommendations.",
     highlights: [
@@ -76,7 +78,7 @@ export const projects = [
     name: "SaaS Landing Page A/B Tester",
     badge: "Analytics & Product",
     status: "Production Tool",
-    previewGif: "/previews/ab-tester.gif",   // ← drop your GIF here
+    previewVideo: "/previews/ab-tester.mp4",   // ← drop your A/B Tester MP4 here
     problem: "Businesses often don't know which landing page variant converts better without costly third-party suites.",
     solution: "A lightweight A/B testing platform that measures visitor click-through rates and surfaces the winning variant with live statistical charts.",
     highlights: [
@@ -96,7 +98,7 @@ export const projects = [
     name: "TruthLens — Fake News Detection",
     badge: "NLP Pipeline",
     status: "Machine Learning Model",
-    previewGif: "/previews/truthlens.gif",   // ← drop your GIF here
+    previewVideo: "/previews/truthlens.mp4",   // ← drop your TruthLens MP4 here
     problem: "Online misinformation spreads rapidly and is difficult to identify manually across unstructured articles.",
     solution: "An NLP classification pipeline that ingests news articles, extracts linguistic features via TF-IDF, and flags falsified claims.",
     highlights: [
@@ -116,7 +118,7 @@ export const projects = [
     name: "Basti Ki Pathshala",
     badge: "Civic & NGO",
     status: "NGO Platform",
-    previewGif: "/previews/basti-pathshala.gif",   // ← drop your GIF here
+    previewVideo: "/previews/basti-pathshala.mp4",   // ← drop your Basti Ki Pathshala MP4 here
     problem: "The grassroots educational NGO needed an accessible online presence for donors, volunteers, and student enrollment.",
     solution: "A responsive, accessible web platform that showcases field programs, volunteer onboarding, and donation avenues.",
     highlights: [

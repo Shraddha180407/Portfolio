@@ -74,16 +74,20 @@ export default function ProjectModal({ project, isOpen, onClose }) {
             {/* Modal Body */}
             <div className="p-6 sm:p-7 overflow-y-auto space-y-6 scrollbar-thin">
 
-              {/* GIF / Video Preview */}
-              {project.previewGif && (
+              {/* MP4 Video Preview */}
+              {project.previewVideo && (
                 <div className="w-full rounded-xl overflow-hidden border border-border/60 bg-[#0d0c16]">
                   <div className="relative w-full aspect-video">
-                    <img
-                      src={project.previewGif}
-                      alt={`${project.name} demo`}
+                    <video
+                      src={project.previewVideo}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      controls
                       className="w-full h-full object-cover"
                     />
-                    <span className="absolute bottom-2.5 right-2.5 text-[0.65rem] font-mono text-ink-faint bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
+                    <span className="absolute bottom-2.5 right-2.5 text-[0.65rem] font-mono text-ink-faint bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10 pointer-events-none">
                       ▶ Demo Preview
                     </span>
                   </div>
