@@ -94,6 +94,22 @@ export default function ProjectModal({ project, isOpen, onClose }) {
                 </div>
               )}
 
+              {/* GIF Preview (fallback) */}
+              {!project.previewVideo && project.previewGif && (
+                <div className="w-full rounded-xl overflow-hidden border border-border/60 bg-[#0d0c16]">
+                  <div className="relative w-full aspect-video">
+                    <img
+                      src={project.previewGif}
+                      alt={`${project.name} demo`}
+                      className="w-full h-full object-cover"
+                    />
+                    <span className="absolute bottom-2.5 right-2.5 text-[0.65rem] font-mono text-ink-faint bg-black/60 backdrop-blur-sm px-2 py-0.5 rounded-full border border-white/10">
+                      ▶ Demo Preview
+                    </span>
+                  </div>
+                </div>
+              )}
+
               {/* Title & Tagline */}
               <div>
                 <h3 className="text-[1.6rem] sm:text-[1.8rem] font-bold text-ink mb-2">

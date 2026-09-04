@@ -58,7 +58,7 @@ export const projects = [
     name: "MoodBowl",
     badge: "Research & AI Voice UI",
     status: "Research paper in preparation",
-    previewVideo: "/previews/moodbowl.mp4",   // ← drop your MoodBowl MP4 here
+    previewVideo: "/previews/moodbowl.mp4",
     problem: "Food ordering platforms ignore the user's emotional state and make navigation cumbersome.",
     solution: "A voice-first food ordering system that reads user emotion through speech and gives personalized recommendations.",
     highlights: [
@@ -78,7 +78,7 @@ export const projects = [
     name: "SaaS Landing Page A/B Tester",
     badge: "Analytics & Product",
     status: "Production Tool",
-    previewVideo: "/previews/ab-tester.mp4",   // ← drop your A/B Tester MP4 here
+    previewGif: "/previews/ab-tester.gif",
     problem: "Businesses often don't know which landing page variant converts better without costly third-party suites.",
     solution: "A lightweight A/B testing platform that measures visitor click-through rates and surfaces the winning variant with live statistical charts.",
     highlights: [
@@ -98,7 +98,7 @@ export const projects = [
     name: "TruthLens — Fake News Detection",
     badge: "NLP Pipeline",
     status: "Machine Learning Model",
-    previewVideo: "/previews/truthlens.mp4",   // ← drop your TruthLens MP4 here
+    previewVideo: "/previews/fake news.mp4",
     problem: "Online misinformation spreads rapidly and is difficult to identify manually across unstructured articles.",
     solution: "An NLP classification pipeline that ingests news articles, extracts linguistic features via TF-IDF, and flags falsified claims.",
     highlights: [
@@ -118,7 +118,7 @@ export const projects = [
     name: "Basti Ki Pathshala",
     badge: "Civic & NGO",
     status: "NGO Platform",
-    previewVideo: "/previews/basti-pathshala.mp4",   // ← drop your Basti Ki Pathshala MP4 here
+    previewGif: "/previews/BastikiPathshala.gif",
     problem: "The grassroots educational NGO needed an accessible online presence for donors, volunteers, and student enrollment.",
     solution: "A responsive, accessible web platform that showcases field programs, volunteer onboarding, and donation avenues.",
     highlights: [

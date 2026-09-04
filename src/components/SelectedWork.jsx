@@ -166,7 +166,6 @@ function ProjectCard({ project, onInspect }) {
               isHovered ? "opacity-100" : "opacity-70"
             }`}
           />
-          {/* Play hint badge */}
           {!isHovered && (
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-[0.7rem] font-medium text-ink-dim bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
@@ -174,7 +173,29 @@ function ProjectCard({ project, onInspect }) {
               </span>
             </div>
           )}
-          {/* Category pill overlay */}
+          <span className="absolute top-2.5 left-2.5 text-[0.65rem] font-semibold text-violet-bright bg-[#0e0e18]/80 backdrop-blur-sm border border-violet/25 px-2 py-0.5 rounded-full">
+            {project.category}
+          </span>
+        </div>
+      )}
+
+      {/* GIF Preview (fallback) */}
+      {!project.previewVideo && project.previewGif && (
+        <div className="relative w-full aspect-video bg-[#0d0c16] overflow-hidden border-b border-border/60">
+          <img
+            src={project.previewGif}
+            alt={`${project.name} preview`}
+            className={`w-full h-full object-cover transition-opacity duration-300 ${
+              isHovered ? "opacity-100" : "opacity-70"
+            }`}
+          />
+          {!isHovered && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-[0.7rem] font-medium text-ink-dim bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
+                ▶ Hover to preview
+              </span>
+            </div>
+          )}
           <span className="absolute top-2.5 left-2.5 text-[0.65rem] font-semibold text-violet-bright bg-[#0e0e18]/80 backdrop-blur-sm border border-violet/25 px-2 py-0.5 rounded-full">
             {project.category}
           </span>
