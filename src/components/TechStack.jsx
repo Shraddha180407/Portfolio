@@ -1,102 +1,61 @@
-import { Sparkles, Cpu, Server, Layout, Wrench, ArrowUpRight } from "lucide-react";
-import { techBento } from "../data/portfolio";
 import useReveal from "../hooks/useReveal";
-import useTilt from "../hooks/useTilt";
-
-const CATEGORY_ICONS = {
-  "AI & Machine Learning": Cpu,
-  "Backend & Systems": Server,
-  "Frontend & Interfaces": Layout,
-  "DevOps & Tooling": Wrench,
-};
-
-function BentoCard({ bento, isFeatured }) {
-  const tiltRef = useTilt(3);
-  const Icon = CATEGORY_ICONS[bento.category] || Sparkles;
-
-  return (
-    <div
-      ref={tiltRef}
-      className={`reveal bg-bg-card border border-border rounded-lg2 p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 hover:border-violet-bright/50 hover:shadow-[0_20px_50px_-15px_rgba(139,92,246,0.18)] ${
-        isFeatured ? "lg:col-span-2 bg-gradient-to-br from-bg-card via-bg-card to-violet/[0.06]" : ""
-      }`}
-    >
-      <div>
-        {/* Card Header */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-[10px] bg-violet/[0.12] border border-violet/25 flex items-center justify-center text-violet-bright">
-              <Icon size={20} />
-            </div>
-            <div>
-              <h3 className="text-[1.2rem] font-bold text-ink">{bento.category}</h3>
-              <p className="text-[0.78rem] text-ink-faint">{bento.description}</p>
-            </div>
-          </div>
-          <span className="text-[0.68rem] font-mono px-2.5 py-1 rounded-full border border-violet-bright/20 bg-violet/10 text-violet-bright">
-            {bento.highlight}
-          </span>
-        </div>
-
-        {/* Items Grid */}
-        <div
-          className={`grid gap-3 mt-5 ${
-            isFeatured ? "sm:grid-cols-2" : "grid-cols-1"
-          }`}
-        >
-          {bento.items.map((item) => (
-            <div
-              key={item.name}
-              className="bg-white/[0.02] border border-border/80 rounded-md2 p-3.5 transition-all hover:bg-white/[0.04] hover:border-border-strong group"
-            >
-              <div className="flex items-center justify-between gap-2 mb-1">
-                <span className="text-[0.9rem] font-semibold text-ink group-hover:text-violet-bright transition-colors">
-                  {item.name}
-                </span>
-                <span className="text-[0.65rem] font-mono text-ink-faint bg-white/[0.05] border border-border/60 px-2 py-0.5 rounded">
-                  {item.tag}
-                </span>
-              </div>
-              <p className="text-[0.78rem] text-ink-dim leading-snug">
-                {item.desc}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
+import { techToolkit } from "../data/portfolio";
 
 export default function TechStack() {
   const ref = useReveal();
 
   return (
-    <section id="stack" className="py-24 sm:py-28 relative overflow-hidden" ref={ref}>
-      <div className="max-w-wrap mx-auto px-5 sm:px-8">
-        {/* Header */}
-        <div className="reveal max-w-[640px] mb-12">
-          <span className="text-[0.8rem] font-semibold text-violet-bright uppercase tracking-wider mb-3.5 block">
-            Technical Arsenal
-          </span>
-          <h2 className="text-[clamp(2rem,3.6vw,2.8rem)] font-bold">
-            Technologies I build and scale with.
-          </h2>
-          <p className="text-ink-dim mt-3.5 text-[1.05rem] leading-relaxed">
-            A curated stack optimized for low-latency AI inference, modern web engineering, and scalable distributed systems.
-          </p>
+    <section id="stack" className="py-20 sm:py-28 relative border-t border-border-rose/30 max-w-5xl mx-auto px-6 sm:px-8" ref={ref}>
+      {/* Clean Title */}
+      <div className="reveal mb-14 sm:mb-18">
+        <div className="text-[0.78rem] font-mono text-berry font-semibold uppercase tracking-wider mb-2">
+          Technical Toolkit
         </div>
+        <h2 className="font-serif text-[clamp(2.4rem,4.6vw,3.6rem)] text-ink font-normal tracking-tight mb-3">
+          Technologies & Proficiency
+        </h2>
+        <p className="text-[1.05rem] text-ink-muted font-sans font-light max-w-2xl">
+          Practical tools and frameworks applied across client web builds, open-source repositories, and machine learning systems.
+        </p>
+      </div>
 
-        {/* Bento Grid */}
-        <div className="grid lg:grid-cols-2 gap-5">
-          {techBento.map((bento, index) => (
-            <BentoCard
-              key={bento.category}
-              bento={bento}
-              isFeatured={index === 0}
-            />
-          ))}
-        </div>
+      {/* 3 Scannable Columns with Direct Project Evidence */}
+      <div className="reveal grid md:grid-cols-3 gap-8 sm:gap-12">
+        {techToolkit.map((cat) => (
+          <div key={cat.category} className="flex flex-col justify-between p-6 rounded-2xl bg-white/70 border border-border-rose/50 shadow-2xs">
+            <div>
+              <div className="pb-4 border-b border-border-rose/40 mb-5">
+                <div className="text-[0.74rem] font-mono text-berry font-semibold uppercase tracking-wider mb-1">
+                  Stream {cat.number}
+                </div>
+                <h3 className="font-serif text-[1.35rem] font-medium text-ink mb-1.5">
+                  {cat.category}
+                </h3>
+                <p className="text-[0.84rem] text-ink-muted font-sans font-light">
+                  {cat.description}
+                </p>
+              </div>
+
+              {/* Tools list */}
+              <div className="flex flex-wrap gap-2 mb-6">
+                {cat.tools.map((tool) => (
+                  <span
+                    key={tool}
+                    className="px-2.5 py-1 rounded-md bg-[#fff0f2] border border-border-rose/60 text-ink text-[0.84rem] font-mono font-medium"
+                  >
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Demonstrated In Evidence Footer */}
+            <div className="pt-4 border-t border-border-rose/40 text-[0.82rem] font-sans">
+              <span className="font-medium text-ink block mb-0.5">Demonstrated in:</span>
+              <span className="text-ink-muted font-light">{cat.demonstratedIn}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );

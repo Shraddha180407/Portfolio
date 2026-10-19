@@ -12,7 +12,7 @@ export default function useTilt(maxTilt = 8) {
     if (prefersReducedMotion || isTouch) return;
 
     el.style.transformStyle = "preserve-3d";
-    el.style.transition = "transform 0.15s ease-out";
+    el.style.transition = "none";
 
     const handleMouseMove = (e) => {
       const rect = el.getBoundingClientRect();
@@ -25,16 +25,17 @@ export default function useTilt(maxTilt = 8) {
       const rotateX = ((y - centerY) / centerY) * -maxTilt;
       const rotateY = ((x - centerX) / centerX) * maxTilt;
 
+      el.style.transition = "none";
       el.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
     };
 
     const handleMouseLeave = () => {
-      el.style.transition = "transform 0.5s cubic-bezier(0.22, 1, 0.36, 1)";
+      el.style.transition = "transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)";
       el.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)";
     };
 
     const handleMouseEnter = () => {
-      el.style.transition = "transform 0.15s ease-out";
+      el.style.transition = "none";
     };
 
     el.addEventListener("mousemove", handleMouseMove);

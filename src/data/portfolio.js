@@ -1,5 +1,4 @@
 // Central content file — edit here to update site copy, links, and stats.
-// Set demoUrl when a live deployment is available; omit or leave null otherwise.
 
 export const profile = {
   name: "Shraddha Gautam",
@@ -11,6 +10,8 @@ export const profile = {
   linkedinHandle: "linkedin.com/in/shraddha-gautam679",
   portfolioUrl: "https://shraddhagautam.netlify.app/",
   resumeUrl: "/Shraddha Gautam — Resume.pdf",
+  whatsappNumber: "+91 99999 99999",
+  whatsappUrl: "https://wa.me/919999999999?text=Hi%20Shraddha,%20I'm%20interested%20in%20discussing%20a%20website%20project",
   photoUrl: null,
 };
 
@@ -21,33 +22,54 @@ export const stats = [
   { num: "100%", label: "Open Source" },
 ];
 
+// Commercial Concept Demo (Sample Business Website)
+export const commercialDemoProject = {
+  id: "apex-academy",
+  name: "Apex Academy",
+  badge: "Concept Demo · Business Web Design",
+  category: "Client Showcase",
+  status: "Concept Demo · Starter Package Reference",
+  previewVideo: null,
+  problem: "Coaching institutes and local tutorial centers struggle to convert visitors due to cluttered, outdated websites that fail on mobile and lack direct WhatsApp lead capture.",
+  solution: "A modern, high-converting responsive website designed for coaching institutes. Features structured course cards, faculty highlights, transparent fee schedules, sample parent reviews, and 1-click WhatsApp admissions enquiry.",
+  commercialNote: {
+    clientGoal: "Turn web visitors into enrolled students with zero-friction mobile browsing and direct WhatsApp leads.",
+    deliverables: "Mobile-first responsive design, course curriculum cards, fee schedule, faculty credentials, illustrative reviews, Google Maps location, and WhatsApp enquiry integration.",
+    package: "Starter Business Package Reference",
+    disclaimer: "Concept Demo: Designed as a functional reference implementation for educational institutes. All faculty and reviews are illustrative sample data.",
+  },
+  demoUrl: "/demo/coaching-institute",
+  tags: ["React", "Tailwind CSS", "Mobile-First", "WhatsApp Lead Flow", "Fast Loading"],
+};
+
+// Featured Technical Full-Stack Platform
 export const featuredProject = {
+  id: "civicindia",
   name: "CivicIndia",
-  badge: "★ Featured Project",
+  badge: "★ Featured Engineering Project",
   category: "Full-Stack",
-  previewVideo: "/previews/civicindia.mp4",   // ← drop your CivicIndia MP4 here
-  problem: "Many citizens don't know which government schemes, jobs, or exams they qualify for.",
-  solution: "A production-ready platform that brings together schemes, jobs, exams, and an eligibility checker in one place.",
+  status: "Full-Stack Web Application · Live Deployment",
+  previewVideo: "/previews/civicindia.mp4",
+  problem: "Citizens struggle to navigate fragmented government portals to identify schemes, job notifications, and examinations they qualify for.",
+  solution: "A production full-stack platform bringing together welfare schemes, live jobs, exam calendars, and an eligibility engine in one bilingual interface.",
+  engineeringNote: {
+    challenge: "Aggregating 25+ government schemes, exam schedules, and employment notifications across state portals with structured bilingual filtering.",
+    decision: "Architected a modular Node.js/Express REST backend with structured SQLite/PostgreSQL storage, scheduled RSS fetch routines, and role-based JWT administrative authentication.",
+    verification: "Deployed live with an authenticated CMS dashboard; verified bilingual (Hindi/English) rendering and responsive mobile-first UI.",
+  },
   highlights: [
-    "25+ schemes cataloged",
-    "50+ live jobs fetched",
-    "40+ exam schedules tracked",
-    "Auto-updating RSS feeds",
-    "JWT authentication & bcrypt",
-    "Admin CMS dashboard",
-    "Hindi / English bilingual",
-    "Mobile-first responsive UX",
+    "25+ schemes cataloged with structured eligibility criteria",
+    "50+ live job postings with automatic RSS updates",
+    "40+ exam schedules tracked across sectors",
+    "Admin CMS dashboard with role-based JWT authentication",
+    "Hindi / English bilingual content rendering",
+    "Mobile-first responsive UI architecture",
   ],
   architecture: ["Next.js UI", "Express REST API", "SQLite / PostgreSQL", "Railway & Vercel"],
   tech: ["Node.js", "Express", "SQLite", "JWT", "bcrypt", "Helmet", "Node Cron", "Railway", "Vercel"],
   githubUrl: "https://github.com/Shraddha180407/CivicIndia",
   caseStudyUrl: "/civicindia",
-  mock: {
-    url: "civicindia.app",
-    title: "All Government Information.",
-    subtitle: "One trusted platform for schemes, jobs, exams & eligibility.",
-    pills: ["Check Eligibility", "Schemes", "Latest Jobs", "News & Updates"],
-  },
+  demoUrl: null,
 };
 
 export const projects = [
@@ -56,20 +78,50 @@ export const projects = [
     icon: "Mic",
     category: "AI & ML",
     name: "MoodBowl",
-    badge: "Research & AI Voice UI",
-    status: "Research paper in preparation",
+    badge: "Voice Emotion AI · Research Prototype",
+    status: "Voice AI Prototype · Paper in Preparation",
     previewVideo: "/previews/moodbowl.mp4",
-    problem: "Food ordering platforms ignore the user's emotional state and make navigation cumbersome.",
-    solution: "A voice-first food ordering system that reads user emotion through speech and gives personalized recommendations.",
+    problem: "Food ordering platforms ignore user emotional state and force users through tedious, multi-step menus.",
+    solution: "A voice-first food ordering system that analyzes acoustic cues to detect user emotion and deliver personalized meal recommendations.",
+    engineeringNote: {
+      challenge: "Detecting user emotional state and affective sentiment directly from raw spoken audio without forcing users through complex multi-step menus.",
+      decision: "Built an asynchronous FastAPI pipeline integrating Gemini multimodal audio processing to extract affective cues and rerank menu items dynamically.",
+      verification: "Awarded Special Mention & Cash Prize at DU Tech-A-Thon; working interactive prototype validated live; academic research paper in preparation.",
+    },
     highlights: [
+      "Special Mention & Cash Prize at DU Tech-A-Thon for affective computing architecture",
       "Research paper in preparation on acoustic emotion-driven recommendation systems",
-      "Real-time voice emotion classification with Gemini API",
-      "FastAPI asynchronous backend with sub-50ms latency",
-      "Awarded Special Mention & Cash Prize at DU Tech-A-Thon",
+      "Real-time voice emotion parsing with Gemini multimodal API",
+      "FastAPI asynchronous backend with PostgreSQL vector-ready schema",
     ],
     architecture: ["Voice Input UI", "Emotion Classifier", "FastAPI Core", "PostgreSQL Vector Store"],
-    tags: ["FastAPI", "PostgreSQL", "Gemini API", "Voice UI", "Python", "Research"],
+    tags: ["FastAPI", "Python", "Gemini API", "PostgreSQL", "Voice UI", "Research"],
     githubUrl: "https://github.com/Shraddha180407/MoodBowl",
+  },
+  {
+    id: "fake-news",
+    icon: "Search",
+    category: "AI & ML",
+    name: "TruthLens — Misinformation Detection",
+    badge: "NLP Pipeline · Open Source",
+    status: "Machine Learning Pipeline · Open Source",
+    previewVideo: "/previews/truthlens.mp4",
+    problem: "Misinformation spreads rapidly and is difficult to identify across unstructured online articles.",
+    solution: "An NLP classification pipeline that ingests article text, extracts linguistic features via TF-IDF, and flags falsified claims.",
+    engineeringNote: {
+      challenge: "Identifying deceptive linguistic markers, sensationalist framing, and fabricated claims across unstructured article text.",
+      decision: "Implemented a two-stage classification workflow: TF-IDF n-gram vectorization with a Passive-Aggressive classifier for rapid text analysis, backed by a Bi-LSTM model for syntactic context.",
+      verification: "Validated on standard fake news benchmark datasets; deployed via a lightweight Flask web interface for interactive article analysis.",
+    },
+    highlights: [
+      "TF-IDF n-gram feature extraction paired with Passive-Aggressive classification",
+      "Bi-directional LSTM neural network for syntactic context verification",
+      "Text preprocessing pipeline with tokenization and lemmatization",
+      "Flask REST API inference endpoint for rapid article classification",
+    ],
+    architecture: ["Text Preprocessor", "TF-IDF Vectorizer", "LSTM Classifier", "Flask Endpoint"],
+    tags: ["Python", "TF-IDF", "LSTM", "Flask", "Scikit-Learn", "NLP"],
+    githubUrl: "https://github.com/Shraddha180407/fake-news-detection",
   },
   {
     id: "ab-tester",
@@ -90,26 +142,6 @@ export const projects = [
     architecture: ["Next.js Frontend", "Tracking Script SDK", "Chart.js Analytics", "SQLite DB"],
     tags: ["Next.js", "Chart.js", "SQLite", "REST API", "Tailwind CSS"],
     githubUrl: "https://github.com/Shraddha180407/A-B-tester",
-  },
-  {
-    id: "fake-news",
-    icon: "Search",
-    category: "AI & ML",
-    name: "TruthLens — Fake News Detection",
-    badge: "NLP Pipeline",
-    status: "Machine Learning Model",
-    previewVideo: "/previews/fake news.mp4",
-    problem: "Online misinformation spreads rapidly and is difficult to identify manually across unstructured articles.",
-    solution: "An NLP classification pipeline that ingests news articles, extracts linguistic features via TF-IDF, and flags falsified claims.",
-    highlights: [
-      "94.2% accuracy on benchmark news datasets",
-      "Bi-directional LSTM and passive-aggressive classifiers",
-      "Pre-processing pipeline with tokenization and lemmatization",
-      "Flask REST API inference endpoint for instant classification",
-    ],
-    architecture: ["Text Preprocessor", "TF-IDF Vectorizer", "LSTM Classifier", "Flask Endpoint"],
-    tags: ["Python", "TF-IDF", "LSTM", "Flask", "Scikit-Learn"],
-    githubUrl: "https://github.com/Shraddha180407/fake-news-detection",
   },
   {
     id: "basti-pathshala",
@@ -133,74 +165,45 @@ export const projects = [
   },
 ];
 
-
-export const techBento = [
+export const techToolkit = [
   {
-    category: "AI & Machine Learning",
-    description: "Core models, agents, and conversational intelligence",
-    highlight: "Primary Focus",
-    items: [
-      { name: "Gemini API", desc: "LLM agents, multi-modal reasoning & prompt engineering", tag: "AI Models" },
-      { name: "TensorFlow", desc: "Deep learning & neural network training pipelines", tag: "Framework" },
-      { name: "Scikit-learn", desc: "Classical ML, TF-IDF vectorization & classification", tag: "ML Toolkit" },
-      { name: "NLP & Voice UI", desc: "Sentiment analysis, acoustic emotion parsing", tag: "Domain" },
-    ],
+    number: "01",
+    category: "Web & Client Sites",
+    description: "Responsive business sites, web apps, and conversion-focused landing pages.",
+    tools: ["React", "Next.js", "Tailwind CSS", "Node.js & Express", "PostgreSQL & SQLite", "Mobile-First UX", "WhatsApp API"],
+    demonstratedIn: "Apex Academy Demo, CivicIndia, Basti Ki Pathshala",
   },
   {
-    category: "Backend & Systems",
-    description: "Scalable APIs, authentication, and vector databases",
-    highlight: "Infrastructure",
-    items: [
-      { name: "FastAPI", desc: "High-throughput asynchronous Python microservices", tag: "Framework" },
-      { name: "Node.js & Express", desc: "Event-driven REST APIs, JWT auth, middleware", tag: "Runtime" },
-      { name: "PostgreSQL", desc: "Relational modeling, indexing & vector search", tag: "Database" },
-      { name: "SQLite", desc: "Embedded, zero-config high-speed storage", tag: "Database" },
-    ],
+    number: "02",
+    category: "AI & Data",
+    description: "Speech intelligence, NLP pipelines, and multimodal inference services.",
+    tools: ["Python", "FastAPI", "Gemini API", "PyTorch & TensorFlow", "Scikit-Learn", "Voice & NLP"],
+    demonstratedIn: "MoodBowl (Voice UI), TruthLens (NLP Classifier)",
   },
   {
-    category: "Frontend & Interfaces",
-    description: "Tactile, responsive, and accessible user experiences",
-    highlight: "UI Engineering",
-    items: [
-      { name: "React", desc: "Component architecture, hooks, concurrent features", tag: "Library" },
-      { name: "Tailwind CSS", desc: "Design systems, fluid responsive typography", tag: "Styling" },
-      { name: "Motion (Framer)", desc: "Physics-driven spring transitions & gestures", tag: "Animation" },
-      { name: "JavaScript / TypeScript", desc: "Type-safe asynchronous application logic", tag: "Language" },
-    ],
-  },
-  {
-    category: "DevOps & Tooling",
-    description: "Deployment pipelines, version control, and design tools",
-    highlight: "Workflow",
-    items: [
-      { name: "Docker", desc: "Containerized environments & reproducible builds", tag: "DevOps" },
-      { name: "Git & GitHub", desc: "Version control, branching & CI workflows", tag: "VCS" },
-      { name: "Railway & Vercel", desc: "Automated production cloud deployments", tag: "Cloud" },
-      { name: "Figma", desc: "Design systems, layout wireframes & prototyping", tag: "Design" },
-    ],
+    number: "03",
+    category: "Deployment & Tools",
+    description: "Version control, containerization, and modern deployment pipelines.",
+    tools: ["Git & GitHub", "Docker", "Railway & Vercel", "REST APIs", "Figma", "Linux / Shell"],
+    demonstratedIn: "Production deployments & open-source repositories",
   },
 ];
 
 export const aboutBento = {
   bio: [
-    "I'm Shraddha Gautam, a Computer Science student at University of Delhi with a passion for building autonomous AI agents and intuitive full-stack platforms.",
-    "I bridge the gap between complex machine learning models and fluid, user-centric software — crafting everything from civic platforms empowering citizens to voice-first emotion-aware systems.",
+    "I'm Shraddha Gautam, a Computer Science Honours student at the University of Delhi. I design and build fast, modern websites and custom web applications for businesses, educators, and startups — alongside deep technical work in speech intelligence and full-stack software.",
+    "My work connects client needs with solid engineering: from high-converting business websites to CivicIndia (a civic welfare portal) and MoodBowl (an acoustic emotion AI system awarded a Special Mention & Cash Prize at DU Tech-A-Thon, with a research paper in preparation).",
   ],
   education: {
     degree: "B.Sc. Computer Science (Honours)",
     institution: "University of Delhi",
     period: "2023 — Present",
-    highlights: ["Data Structures & Algorithms", "Operating Systems", "AI & Machine Learning", "Database Systems"],
+    highlights: ["Data Structures & Algorithms", "Operating Systems", "Machine Learning", "Database Systems"],
   },
   currentlyExploring: [
-    { title: "Agentic AI Workflows", detail: "Multi-agent orchestration and tool-use pipelines" },
-    { title: "RAG & Vector Retrieval", detail: "Context-aware hybrid search with embedding stores" },
-    { title: "Voice & Multi-modal Interfaces", detail: "Real-time acoustic analysis and conversational UI" },
-  ],
-  principles: [
-    { title: "Impact Over Complexity", desc: "Build technology that directly solves tangible problems for real users." },
-    { title: "End-to-End Craft", desc: "Own both the machine learning pipelines and the interactive UI experience." },
-    { title: "Continuous Exploration", desc: "Stay at the frontier of generative AI, open source, and web systems." },
+    { title: "High-Converting Client Websites", detail: "Fast, mobile-first websites with direct WhatsApp lead flows" },
+    { title: "Voice & Multimodal AI", detail: "Real-time acoustic analysis and conversational interfaces" },
+    { title: "Resilient Full-Stack Systems", detail: "Clean APIs, secure authentication, and scalable databases" },
   ],
 };
 
@@ -219,34 +222,33 @@ export const civicIndiaCaseStudy = {
     { name: "Vercel", color: "#fb8562" },
   ],
   keyFeatures: [
-    "Eligibility checker for 100+ schemes",
-    "Live government job feed",
-    "Admin CMS to manage content",
-    "JWT authentication & role-based access",
-    "Hindi / English language support",
-    "Fully responsive & accessible",
+    "Eligibility checker for 25+ cataloged schemes",
+    "Live government job feed with automated RSS sync",
+    "Admin CMS to manage and publish verified content",
+    "JWT authentication & bcrypt password hashing",
+    "Hindi / English bilingual content support",
+    "Fully responsive mobile-first architecture",
   ],
   architecture: [
     { label: "Frontend\n(Next.js)", accent: true },
     { label: "REST API\n(Express)", accent: false },
-    { label: "PostgreSQL\nDatabase", accent: false },
+    { label: "PostgreSQL / SQLite\nDatabase", accent: false },
     { label: "Admin CMS\nDashboard", accent: true },
   ],
   challenges: [
-    "Handling large datasets efficiently",
-    "Real-time job feed updates",
-    "Authentication and multilingual support",
+    "Structuring heterogeneous government notifications into unified queryable schemas",
+    "Maintaining reliable automated feed updates without dropping connection sessions",
+    "Securing administrative routes with robust JWT tokens and bcrypt encryption",
   ],
   results: [
-    "Deployed & live in production",
-    "100+ active users",
-    "Optimized query performance",
-    "Secure & scalable architecture",
+    "Deployed and verified in live cloud environment",
+    "Clean bilingual presentation for everyday citizens",
+    "Role-based administrative control over published notices",
   ],
   nextUp: [
-    "Push notifications for new schemes",
-    "Analytics dashboard for admins",
-    "Offline-first support for low connectivity",
+    "Multilingual SMS notifications for remote rural districts",
+    "Automated state gazette scrapers with webhook alerts",
+    "Direct WhatsApp bot integration for scheme qualification checks",
   ],
   githubUrl: "https://github.com/Shraddha180407/CivicIndia",
 };

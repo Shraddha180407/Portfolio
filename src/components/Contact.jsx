@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Download } from "lucide-react";
+import { Mail, Download, ArrowUpRight, Send, CheckCircle2, MessageCircle } from "lucide-react";
 import { profile } from "../data/portfolio";
 import useReveal from "../hooks/useReveal";
 
@@ -19,36 +19,11 @@ function LinkedinIcon(props) {
   );
 }
 
-const rows = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: profile.email,
-    href: `mailto:${profile.email}`,
-    external: false,
-  },
-  {
-    icon: GithubIcon,
-    label: "GitHub",
-    value: profile.githubHandle,
-    href: profile.github,
-    external: true,
-  },
-  {
-    icon: LinkedinIcon,
-    label: "LinkedIn",
-    value: profile.linkedinHandle,
-    href: profile.linkedin,
-    external: true,
-  },
-  {
-    icon: Download,
-    label: "Resume",
-    value: "Download My Resume",
-    href: profile.resumeUrl,
-    external: false,
-    download: true,
-  },
+const PROJECT_TYPES = [
+  "Business / Coaching Website",
+  "Custom Web App / MVP",
+  "Website Redesign",
+  "General Inquiry",
 ];
 
 export default function Contact() {
@@ -56,6 +31,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [projectType, setProjectType] = useState("Business / Coaching Website");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
@@ -63,14 +39,13 @@ export default function Contact() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setStatus("Sending message...");
-    
-    // Simulate interactive submit response with smooth state feedback
-    await new Promise((resolve) => setTimeout(resolve, 800));
-    
+    setStatus("Submitting your inquiry...");
+
+    await new Promise((resolve) => setTimeout(resolve, 600));
+
     setIsSubmitting(false);
     setIsSuccess(true);
-    setStatus("Thank you! Your message has been sent successfully.");
+    setStatus("Thank you! Your project inquiry has been received. I'll get back to you promptly.");
     setForm({ name: "", email: "", message: "" });
     setTimeout(() => {
       setStatus("");
@@ -78,107 +53,246 @@ export default function Contact() {
     }, 6000);
   };
 
-  return (
-    <section id="contact" className="py-24 sm:py-28" ref={ref}>
-      <div className="max-w-wrap mx-auto px-5 sm:px-8">
-        <div className="reveal max-w-[640px] mb-14">
-          <span className="text-[0.8rem] font-semibold text-violet-bright uppercase tracking-wider mb-3.5 block">
-            Contact
-          </span>
-          <h2 className="text-[clamp(2rem,3.6vw,2.8rem)]">Let's build something amazing.</h2>
-          <p className="text-ink-dim mt-3.5 text-[1.05rem]">
-            I'm always open to discussing new projects, collaborations, or
-            opportunities.
-          </p>
-        </div>
+  const channels = [
+    {
+      icon: MessageCircle,
+      label: "WhatsApp",
+      value: "Chat on WhatsApp (Instant)",
+      href: profile.whatsappUrl,
+      external: true,
+      highlight: true,
+    },
+    {
+      icon: Mail,
+      label: "Email",
+      value: profile.email,
+      href: `mailto:${profile.email}`,
+      external: false,
+    },
+    {
+      icon: LinkedinIcon,
+      label: "LinkedIn",
+      value: profile.linkedinHandle,
+      href: profile.linkedin,
+      external: true,
+    },
+    {
+      icon: GithubIcon,
+      label: "GitHub",
+      value: profile.githubHandle,
+      href: profile.github,
+      external: true,
+    },
+    {
+      icon: Download,
+      label: "Resume",
+      value: "Download Resume PDF",
+      href: profile.resumeUrl,
+      external: false,
+      download: true,
+    },
+  ];
 
-        <div className="reveal grid lg:grid-cols-[1fr_1.2fr] gap-7">
-          <div className="flex flex-col gap-3.5">
-            {rows.map((r) => (
+  return (
+    <section id="contact" className="py-20 sm:py-28 relative border-t border-border-rose/30 max-w-5xl mx-auto px-6 sm:px-8" ref={ref}>
+      {/* Title */}
+      <div className="reveal mb-14 sm:mb-18">
+        <div className="text-[0.78rem] font-mono text-berry font-semibold uppercase tracking-wider mb-2">
+          Project Inquiries & Contact
+        </div>
+        <h2 className="font-serif text-[clamp(2.4rem,4.6vw,3.6rem)] text-ink font-normal tracking-tight mb-3">
+          Start a Project or Get in Touch
+        </h2>
+        <p className="text-[1.05rem] text-ink-muted font-sans font-light max-w-2xl">
+          I build fast, modern websites and custom web applications for businesses, educators, and startups. Need a high-converting website, an interactive MVP, or a clean redesign? Let's connect.
+        </p>
+      </div>
+
+      <div className="reveal grid md:grid-cols-[1fr_1.18fr] gap-12 sm:gap-16 items-start">
+        {/* Direct Channels Column */}
+        <div className="space-y-4">
+          <div className="space-y-2.5">
+            {channels.map((c) => (
               <a
-                key={r.label}
-                href={r.href}
-                target={r.external ? "_blank" : undefined}
-                rel={r.external ? "noopener noreferrer" : undefined}
-                download={r.download}
-                className="flex items-center gap-4 bg-bg-card border border-border rounded-md2 px-5 py-4.5 transition-colors hover:border-violet-bright"
+                key={c.label}
+                href={c.href}
+                target={c.external ? "_blank" : undefined}
+                rel={c.external ? "noopener noreferrer" : undefined}
+                download={c.download ? "" : undefined}
+                className={`p-4 rounded-xl border flex items-center justify-between transition-all duration-150 active:scale-[0.98] group ${
+                  c.highlight
+                    ? "bg-emerald-50/70 border-emerald-300 hover:bg-emerald-50 hover:border-emerald-500 shadow-2xs"
+                    : "bg-white border-border-rose/50 hover:border-berry/40"
+                }`}
               >
-                <div className="w-10 h-10 rounded-[10px] bg-violet/[0.14] flex items-center justify-center flex-shrink-0">
-                  <r.icon size={18} className="text-violet-bright" />
+                <div className="flex items-center gap-3.5">
+                  <div
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
+                      c.highlight
+                        ? "bg-emerald-600 text-white"
+                        : "bg-[#fff0f2] text-berry"
+                    }`}
+                  >
+                    <c.icon size={17} />
+                  </div>
+                  <div>
+                    <div className="text-[0.72rem] font-mono uppercase text-ink-faint">
+                      {c.label}
+                    </div>
+                    <div
+                      className={`text-[0.92rem] font-medium font-sans ${
+                        c.highlight ? "text-emerald-950 font-semibold" : "text-ink"
+                      }`}
+                    >
+                      {c.value}
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-[0.75rem] text-ink-faint mb-0.5">{r.label}</div>
-                  <div className="text-[0.92rem] font-medium">{r.value}</div>
-                </div>
+                <ArrowUpRight
+                  size={15}
+                  className={`transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
+                    c.highlight ? "text-emerald-700" : "text-ink-faint group-hover:text-berry"
+                  }`}
+                />
               </a>
             ))}
           </div>
 
-          <form
-            onSubmit={handleSubmit}
-            className="bg-bg-card border border-border rounded-md2 p-7 flex flex-col gap-4"
-          >
-            <div className="grid sm:grid-cols-2 gap-3.5">
-              <div>
-                <label htmlFor="cf-name" className="text-[0.78rem] text-ink-faint mb-1.5 block">
-                  Name
-                </label>
-                <input
-                  id="cf-name"
-                  name="name"
-                  type="text"
-                  required
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="Your Name"
-                  className="w-full bg-bg-raised border border-border rounded-[10px] px-3.5 py-3 text-[0.9rem] focus:border-violet-bright focus:outline-none"
-                />
-              </div>
-              <div>
-                <label htmlFor="cf-email" className="text-[0.78rem] text-ink-faint mb-1.5 block">
-                  Email
-                </label>
-                <input
-                  id="cf-email"
-                  name="email"
-                  type="email"
-                  required
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="Your Email"
-                  className="w-full bg-bg-raised border border-border rounded-[10px] px-3.5 py-3 text-[0.9rem] focus:border-violet-bright focus:outline-none"
-                />
+          {/* Service Scope Card */}
+          <div className="p-5 rounded-2xl bg-[#fff0f2]/60 border border-border-rose/60 text-[0.84rem] text-ink-muted space-y-2 font-sans">
+            <div className="text-[0.72rem] font-mono uppercase text-berry font-semibold tracking-wider">
+              Service Capabilities
+            </div>
+            <ul className="space-y-1.5 text-ink-muted">
+              <li>• <strong>Starter Business Websites:</strong> Fast, mobile-first pages with WhatsApp lead generation.</li>
+              <li>• <strong>Web Applications & MVPs:</strong> Custom portals built with React, Node.js, or FastAPI.</li>
+              <li>• <strong>Website Redesigns:</strong> Clean typography, modern aesthetics, and performance optimization.</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Project Inquiry Form */}
+        <div className="bg-white border border-border-rose/50 rounded-2xl p-7 sm:p-8 shadow-xs">
+          <div className="flex items-center justify-between mb-1">
+            <h3 className="font-serif text-[1.25rem] font-medium text-ink">
+              Send a project inquiry
+            </h3>
+            <span className="text-[0.72rem] font-mono text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+              Prompt Response
+            </span>
+          </div>
+          <p className="text-[0.84rem] text-ink-muted mb-5 font-sans font-light">
+            Share your requirements below and I'll get back to you with timeline and scope details.
+          </p>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Project Type Selector */}
+            <div>
+              <label className="block text-[0.74rem] font-mono text-ink-muted uppercase tracking-wider mb-1.5">
+                Project Type
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                {PROJECT_TYPES.map((type) => (
+                  <button
+                    key={type}
+                    type="button"
+                    onClick={() => setProjectType(type)}
+                    className={`px-3 py-2 rounded-lg text-[0.78rem] font-medium text-left transition-all border ${
+                      projectType === type
+                        ? "bg-[#450920] text-white border-[#450920]"
+                        : "bg-[#fff8f8] text-ink-muted border-border-rose/50 hover:border-berry/40"
+                    }`}
+                  >
+                    {type}
+                  </button>
+                ))}
               </div>
             </div>
+
             <div>
-              <label htmlFor="cf-msg" className="text-[0.78rem] text-ink-faint mb-1.5 block">
-                Message
+              <label
+                htmlFor="name"
+                className="block text-[0.74rem] font-mono text-ink-muted uppercase tracking-wider mb-1"
+              >
+                Your Name / Business Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                value={form.name}
+                onChange={handleChange}
+                placeholder="e.g. Rahul Sharma"
+                className="w-full bg-[#fff8f8] border border-border-rose/50 rounded-lg px-3.5 py-2.5 text-[0.92rem] text-ink placeholder:text-ink-faint/50 focus:outline-none focus:border-berry transition-all font-sans"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-[0.74rem] font-mono text-ink-muted uppercase tracking-wider mb-1"
+              >
+                Email or WhatsApp Number
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="text"
+                required
+                value={form.email}
+                onChange={handleChange}
+                placeholder="email@domain.com or +91..."
+                className="w-full bg-[#fff8f8] border border-border-rose/50 rounded-lg px-3.5 py-2.5 text-[0.92rem] text-ink placeholder:text-ink-faint/50 focus:outline-none focus:border-berry transition-all font-sans"
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="message"
+                className="block text-[0.74rem] font-mono text-ink-muted uppercase tracking-wider mb-1"
+              >
+                Project Details
               </label>
               <textarea
-                id="cf-msg"
+                id="message"
                 name="message"
-                rows={5}
+                rows={4}
                 required
                 value={form.message}
                 onChange={handleChange}
-                placeholder="Your Message"
-                className="w-full bg-bg-raised border border-border rounded-[10px] px-3.5 py-3 text-[0.9rem] resize-y focus:border-violet-bright focus:outline-none"
+                placeholder={`Tell me about your ${projectType.toLowerCase()} requirements, goals, or preferred timeline...`}
+                className="w-full bg-[#fff8f8] border border-border-rose/50 rounded-lg px-3.5 py-2.5 text-[0.92rem] text-ink placeholder:text-ink-faint/50 focus:outline-none focus:border-berry transition-all font-sans resize-none"
               />
             </div>
-            <div className="flex items-center justify-between gap-4 flex-wrap">
-              <span className={`text-[0.85rem] min-h-[20px] transition-colors ${isSuccess ? "text-success font-medium" : "text-ink-dim"}`}>
-                {status}
-              </span>
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className={`px-6 py-3 rounded-full font-semibold text-[0.9rem] bg-brand text-bg transition-all hover:-translate-y-0.5 ${
-                  isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-3 rounded-full font-medium text-[0.88rem] bg-[#450920] text-white transition-all duration-200 hover:bg-berry active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-2 shadow-xs"
+            >
+              {isSubmitting ? (
+                <span>Submitting inquiry...</span>
+              ) : (
+                <>
+                  <span>Send Project Inquiry</span>
+                  <Send size={14} />
+                </>
+              )}
+            </button>
+
+            {status && (
+              <div
+                className={`flex items-center gap-2 text-[0.84rem] p-3 rounded-xl font-medium mt-3 ${
+                  isSuccess
+                    ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
+                    : "bg-[#fff0f2] text-berry border border-border-rose"
                 }`}
               >
-                {isSubmitting ? "Sending..." : "Send Message →"}
-              </button>
-            </div>
+                {isSuccess && <CheckCircle2 size={16} className="text-emerald-600 shrink-0" />}
+                <span>{status}</span>
+              </div>
+            )}
           </form>
         </div>
       </div>

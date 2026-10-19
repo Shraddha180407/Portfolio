@@ -25,3 +25,7 @@ dist-ssr
 
 .agents/
 .codex/
+
+# Local temporary assets
+/Ashfan Akhtar birthday design*.png
+/stitch_cold_monolith_engineering_portfolio*

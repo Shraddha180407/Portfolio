@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [isHovered, setIsHovered] = useState(false);
+  const haloRef = useRef(null);
+  const dotRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const isHoveredRef = useRef(false);
 
   useEffect(() => {
     // Disable on touch / mobile devices or reduced motion
@@ -23,27 +24,49 @@ export default function CustomCursor() {
       targetX = e.clientX;
       targetY = e.clientY;
 
+      // Update inner dot immediately on the GPU with 0 latency
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
+      }
+
       const target = e.target;
       const isInteractive =
         target.closest("a, button, input, textarea, [role='button'], .interactive-hover") !== null;
-      setIsHovered(isInteractive);
+
+      if (isHoveredRef.current !== isInteractive) {
+        isHoveredRef.current = isInteractive;
+        if (haloRef.current) {
+          haloRef.current.setAttribute("data-hover", isInteractive ? "true" : "false");
+        }
+      }
     };
 
-    const onMouseLeave = () => setIsVisible(false);
-    const onMouseEnter = () => setIsVisible(true);
+    const onMouseLeave = () => {
+      if (haloRef.current) haloRef.current.style.opacity = "0";
+      if (dotRef.current) dotRef.current.style.opacity = "0";
+    };
 
-    const updateCursor = () => {
-      // Smooth spring interpolation
-      currentX += (targetX - currentX) * 0.2;
-      currentY += (targetY - currentY) * 0.2;
-      setPos({ x: currentX, y: currentY });
-      animationFrameId = requestAnimationFrame(updateCursor);
+    const onMouseEnter = () => {
+      if (haloRef.current) haloRef.current.style.opacity = "1";
+      if (dotRef.current) dotRef.current.style.opacity = "1";
+    };
+
+    const updateHalo = () => {
+      // Smooth inertial trailing for outer halo
+      currentX += (targetX - currentX) * 0.22;
+      currentY += (targetY - currentY) * 0.22;
+
+      if (haloRef.current) {
+        haloRef.current.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+      }
+
+      animationFrameId = requestAnimationFrame(updateHalo);
     };
 
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     document.addEventListener("mouseleave", onMouseLeave);
     document.addEventListener("mouseenter", onMouseEnter);
-    animationFrameId = requestAnimationFrame(updateCursor);
+    animationFrameId = requestAnimationFrame(updateHalo);
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
@@ -57,26 +80,22 @@ export default function CustomCursor() {
 
   return (
     <>
-      {/* Outer ambient glow dot */}
+      {/* Outer ambient glow halo (smooth GPU transform, 0 layout reflows) */}
       <div
+        ref={haloRef}
         aria-hidden
-        className={`pointer-events-none fixed z-[999] rounded-full transition-transform duration-200 ease-out -translate-x-1/2 -translate-y-1/2 ${
-          isHovered
-            ? "w-14 h-14 bg-violet-bright/20 border border-violet-bright/40 shadow-[0_0_24px_rgba(167,139,250,0.5)] scale-110"
-            : "w-8 h-8 bg-violet/15 border border-violet/30 shadow-[0_0_16px_rgba(139,92,246,0.3)] scale-100"
-        }`}
+        className="pointer-events-none fixed top-0 left-0 z-[999] rounded-full w-9 h-9 bg-blush/15 border border-blush/35 shadow-[0_0_18px_rgba(218,98,125,0.22)] will-change-transform transition-[width,height,background-color,border-color,box-shadow] duration-200 ease-out data-[hover=true]:w-14 data-[hover=true]:h-14 data-[hover=true]:bg-blush/25 data-[hover=true]:border-blush/50 data-[hover=true]:shadow-[0_0_26px_rgba(218,98,125,0.4)]"
         style={{
-          left: `${pos.x}px`,
-          top: `${pos.y}px`,
+          transform: "translate3d(-100px, -100px, 0) translate(-50%, -50%)",
         }}
       />
-      {/* Inner precise dot */}
+      {/* Inner precise berry dot (0ms input latency) */}
       <div
+        ref={dotRef}
         aria-hidden
-        className="pointer-events-none fixed z-[999] w-1.5 h-1.5 bg-coral rounded-full -translate-x-1/2 -translate-y-1/2 shadow-[0_0_8px_#fb8562]"
+        className="pointer-events-none fixed top-0 left-0 z-[999] w-1.5 h-1.5 bg-berry rounded-full shadow-[0_0_8px_rgba(165,56,96,0.6)] will-change-transform"
         style={{
-          left: `${pos.x}px`,
-          top: `${pos.y}px`,
+          transform: "translate3d(-100px, -100px, 0) translate(-50%, -50%)",
         }}
       />
     </>

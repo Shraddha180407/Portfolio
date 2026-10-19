@@ -1,37 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, ArrowUpRight, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { profile } from "../data/portfolio";
 
-const LINKS = [
-  { id: "work", label: "Selected Work" },
-  { id: "stack", label: "Tech Stack" },
-  { id: "about", label: "About" },
-  { id: "contact", label: "Contact" },
-];
-
-export default function Navbar({ onOpenCommandPalette }) {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
   const onHome = location.pathname === "/";
-
-  useEffect(() => {
-    if (!onHome) return;
-    const sections = LINKS.map((l) => document.getElementById(l.id)).filter(Boolean);
-    const onScroll = () => {
-      let current = "";
-      sections.forEach((sec) => {
-        const rect = sec.getBoundingClientRect();
-        if (rect.top <= 120 && rect.bottom >= 120) current = sec.id;
-      });
-      setActive(current);
-    };
-    document.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => document.removeEventListener("scroll", onScroll);
-  }, [onHome]);
 
   const goToSection = (id) => {
     setOpen(false);
@@ -42,94 +19,94 @@ export default function Navbar({ onOpenCommandPalette }) {
     }
   };
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    if (open) window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [open]);
-
   return (
-    <nav className="sticky top-0 z-[100] bg-bg/75 backdrop-blur-xl backdrop-saturate-150 border-b border-border">
-      <div className="max-w-wrap mx-auto px-5 sm:px-8 py-[16px] flex items-center justify-between">
+    <nav className="sticky top-0 z-[100] bg-[#fff8f8]/80 backdrop-blur-md transition-all duration-200">
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 py-5 flex items-center justify-between">
+        {/* Name / Brand (Matches mockup top-left) */}
         <Link
           to="/"
-          className="font-display font-bold text-lg w-[38px] h-[38px] rounded-[10px] bg-brand flex items-center justify-center text-bg shadow-[0_0_15px_rgba(139,92,246,0.3)] transition-transform hover:scale-105"
+          className="font-serif text-[1.2rem] font-medium text-ink hover:text-berry transition-colors tracking-tight"
         >
-          {profile.initials}
+          {profile.name}
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <div className="hidden md:flex items-center gap-8">
-          {LINKS.map((l) => (
-            <button
-              key={l.id}
-              onClick={() => goToSection(l.id)}
-              className={`relative text-[0.92rem] font-medium transition-colors ${
-                active === l.id ? "text-ink" : "text-ink-dim hover:text-ink"
-              }`}
-            >
-              {l.label}
-              {active === l.id && (
-                <span className="absolute left-0 right-0 -bottom-1.5 h-[2px] rounded-full bg-brand" />
-              )}
-            </button>
-          ))}
-        </div>
-
-        {/* Right Actions: Command Palette & GitHub */}
-        <div className="flex items-center gap-2.5 sm:gap-3">
-          {/* Quick Command Palette Button */}
+        {/* Clean Text Navigation Links (Matches mockup top-right) */}
+        <div className="hidden md:flex items-center gap-8 text-[0.92rem] font-sans">
           <button
-            onClick={onOpenCommandPalette}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-white/[0.03] text-[0.8rem] text-ink-dim hover:text-ink hover:border-violet-bright transition-all"
-            title="Open Command Palette (Cmd+K)"
+            onClick={() => goToSection("work")}
+            className="text-ink-muted hover:text-ink transition-colors font-medium"
           >
-            <Search size={13} className="text-violet-bright" />
-            <span className="hidden sm:inline">Search</span>
-            <kbd className="font-mono text-[0.68rem] bg-white/[0.06] border border-border px-1.5 py-0.5 rounded text-ink-faint">
-              ⌘K
-            </kbd>
+            Work
           </button>
-
+          <button
+            onClick={() => goToSection("about")}
+            className="text-ink-muted hover:text-ink transition-colors font-medium"
+          >
+            About
+          </button>
+          <button
+            onClick={() => goToSection("contact")}
+            className="text-ink-muted hover:text-ink transition-colors font-medium"
+          >
+            Contact
+          </button>
           <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-1.5 border border-border-strong px-4 py-2 rounded-full text-[0.85rem] font-medium transition-all hover:border-violet-bright hover:text-violet-bright hover:-translate-y-0.5"
+            href={profile.resumeUrl}
+            download
+            className="text-berry hover:text-ink transition-colors font-medium"
           >
-            GitHub <ArrowUpRight size={12} />
+            Resume
           </a>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden p-1.5 text-ink-dim hover:text-ink transition-colors"
-            aria-label="Toggle menu"
-            aria-expanded={open}
-            onClick={() => setOpen((o) => !o)}
-          >
-            {open ? <X size={22} /> : <Menu size={22} />}
-          </button>
         </div>
+
+        {/* Mobile Toggle */}
+        <button
+          className="md:hidden text-ink-muted hover:text-ink transition-colors p-1"
+          aria-label="Toggle menu"
+          onClick={() => setOpen((o) => !o)}
+        >
+          {open ? <X size={22} /> : <Menu size={22} />}
+        </button>
       </div>
 
-      {/* Mobile Drawer */}
-      <div
-        className={`md:hidden flex flex-col bg-[#0d0d14]/95 backdrop-blur-lg border-b border-border px-6 transition-all duration-300 ease-out overflow-hidden ${
-          open ? "max-h-[300px] opacity-100 py-3 pb-5" : "max-h-0 opacity-0 py-0"
-        }`}
-      >
-        {LINKS.map((l) => (
-          <button
-            key={l.id}
-            onClick={() => goToSection(l.id)}
-            className="text-left py-3 text-[0.95rem] text-ink-dim hover:text-ink transition-colors border-b border-border/50 last:border-none"
+      {/* Mobile Dropdown */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, y: -6 }}
+            animate={{ opacity: 1, height: "auto", y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -6 }}
+            transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+            className="md:hidden bg-[#fff8f8] border-b border-border-rose/40 px-6 py-4 flex flex-col gap-3 font-sans text-[0.95rem] overflow-hidden origin-top"
           >
-            {l.label}
-          </button>
-        ))}
-      </div>
+            <button
+              onClick={() => goToSection("work")}
+              className="text-left py-2 text-ink-muted hover:text-ink active:scale-[0.98] transition-all"
+            >
+              Work
+            </button>
+            <button
+              onClick={() => goToSection("about")}
+              className="text-left py-2 text-ink-muted hover:text-ink active:scale-[0.98] transition-all"
+            >
+              About
+            </button>
+            <button
+              onClick={() => goToSection("contact")}
+              className="text-left py-2 text-ink-muted hover:text-ink active:scale-[0.98] transition-all"
+            >
+              Contact
+            </button>
+            <a
+              href={profile.resumeUrl}
+              download
+              className="py-2 text-berry font-medium active:scale-[0.98] transition-all"
+            >
+              Resume
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

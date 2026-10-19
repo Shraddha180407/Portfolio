@@ -181,6 +181,7 @@ export default function CommandPalette({ isOpen, onClose }) {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen, selectedIndex, flatItems]);
 
   return (
@@ -194,7 +195,7 @@ export default function CommandPalette({ isOpen, onClose }) {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/75 backdrop-blur-md"
+            className="fixed inset-0 bg-[#450920]/40 backdrop-blur-md"
           />
 
           {/* Palette Box */}
@@ -203,11 +204,11 @@ export default function CommandPalette({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -8 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-[580px] bg-[#0f0f18]/95 backdrop-blur-2xl border border-border-strong rounded-lg2 shadow-[0_30px_90px_-20px_rgba(0,0,0,0.9),0_0_40px_rgba(139,92,246,0.18)] overflow-hidden flex flex-col max-h-[70vh]"
+            className="relative w-full max-w-[580px] bg-white/95 backdrop-blur-2xl border border-border-rose rounded-2xl shadow-glass-card overflow-hidden flex flex-col max-h-[70vh]"
           >
             {/* Search Input Bar */}
-            <div className="flex items-center gap-3 px-4.5 py-4 border-b border-border/80 bg-white/[0.02]">
-              <Search size={18} className="text-violet-bright flex-shrink-0" />
+            <div className="flex items-center gap-3 px-4.5 py-4 border-b border-border-rose-subtle bg-[#fff8f8]/60">
+              <Search size={18} className="text-blush flex-shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -217,7 +218,7 @@ export default function CommandPalette({ isOpen, onClose }) {
                   setSelectedIndex(0);
                 }}
                 placeholder="Type a command, project, or destination..."
-                className="w-full bg-transparent text-[0.95rem] text-ink placeholder:text-ink-faint focus:outline-none"
+                className="w-full bg-transparent text-[0.95rem] text-ink placeholder:text-ink-faint focus:outline-none font-sans"
               />
               {query && (
                 <button
@@ -227,13 +228,13 @@ export default function CommandPalette({ isOpen, onClose }) {
                   <X size={14} />
                 </button>
               )}
-              <span className="text-[0.72rem] font-mono text-ink-faint border border-border px-2 py-0.5 rounded bg-white/[0.03]">
+              <span className="text-[0.72rem] font-mono text-ink-dim border border-border-rose-subtle px-2 py-0.5 rounded bg-white">
                 ESC
               </span>
             </div>
 
             {/* Results List */}
-            <div className="overflow-y-auto p-2 space-y-3.5 scrollbar-thin">
+            <div className="overflow-y-auto p-2 space-y-3.5">
               {filteredCategories.length === 0 ? (
                 <div className="py-10 text-center text-ink-faint text-[0.88rem]">
                   No results found for "<span className="text-ink">{query}</span>"
@@ -241,7 +242,7 @@ export default function CommandPalette({ isOpen, onClose }) {
               ) : (
                 filteredCategories.map((category) => (
                   <div key={category.category}>
-                    <div className="px-3 py-1 text-[0.72rem] uppercase tracking-wider font-semibold text-ink-faint">
+                    <div className="px-3 py-1 text-[0.72rem] uppercase tracking-wider font-semibold text-ink-faint font-mono">
                       {category.category}
                     </div>
                     <div className="mt-1 space-y-0.5">
@@ -255,9 +256,9 @@ export default function CommandPalette({ isOpen, onClose }) {
                             key={item.title}
                             onClick={() => handleNavigation(item)}
                             onMouseEnter={() => setSelectedIndex(globalIndex)}
-                            className={`w-full text-left px-3.5 py-2.5 rounded-md2 flex items-center justify-between transition-all ${
+                            className={`w-full text-left px-3.5 py-2.5 rounded-xl flex items-center justify-between transition-all ${
                               isSelected
-                                ? "bg-violet/15 border border-violet-bright/30 text-ink shadow-[0_0_15px_rgba(139,92,246,0.15)]"
+                                ? "bg-[#fff0f2] border border-border-rose text-ink shadow-sm"
                                 : "bg-transparent text-ink-dim hover:text-ink border border-transparent"
                             }`}
                           >
@@ -265,17 +266,17 @@ export default function CommandPalette({ isOpen, onClose }) {
                               <div
                                 className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-colors ${
                                   isSelected
-                                    ? "bg-violet text-bg"
-                                    : "bg-white/[0.04] text-violet-bright border border-border"
+                                    ? "bg-brand text-white shadow-soft-rose"
+                                    : "bg-[#fff8f8] text-berry border border-border-rose-subtle"
                                 }`}
                               >
                                 <ItemIcon size={16} />
                               </div>
                               <div className="truncate">
-                                <div className="text-[0.88rem] font-medium truncate">
+                                <div className="text-[0.88rem] font-semibold text-ink truncate font-sans">
                                   {item.title}
                                 </div>
-                                <div className="text-[0.75rem] text-ink-faint truncate">
+                                <div className="text-[0.75rem] text-ink-faint truncate font-sans">
                                   {item.subtitle}
                                 </div>
                               </div>
@@ -284,7 +285,7 @@ export default function CommandPalette({ isOpen, onClose }) {
                               size={14}
                               className={`transition-transform flex-shrink-0 ml-2 ${
                                 isSelected
-                                  ? "opacity-100 translate-x-0 text-violet-bright"
+                                  ? "opacity-100 translate-x-0 text-berry"
                                   : "opacity-0 -translate-x-2"
                               }`}
                             />
@@ -298,7 +299,7 @@ export default function CommandPalette({ isOpen, onClose }) {
             </div>
 
             {/* Footer Status & Keys Hint */}
-            <div className="px-4 py-2.5 border-t border-border/60 bg-bg-raised/60 flex items-center justify-between text-[0.72rem] text-ink-faint">
+            <div className="px-4 py-2.5 border-t border-border-rose-subtle bg-[#fff8f8] flex items-center justify-between text-[0.72rem] text-ink-faint font-mono">
               <span className="flex items-center gap-2">
                 <span>↑↓ Navigate</span>
                 <span>•</span>

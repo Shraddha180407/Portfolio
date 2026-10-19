@@ -1,330 +1,260 @@
 import { useState } from "react";
-import { ArrowUpRight, Mic, BarChart3, Search, GraduationCap, Folder, Layers, Sparkles } from "lucide-react";
-import { featuredProject, projects } from "../data/portfolio";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, ArrowRight, GraduationCap, ChevronDown } from "lucide-react";
+import { commercialDemoProject, featuredProject, projects } from "../data/portfolio";
 import useReveal from "../hooks/useReveal";
-import useTilt from "../hooks/useTilt";
 import ProjectModal from "./ProjectModal";
 
-const ICON_MAP = {
-  Mic,
-  BarChart3,
-  Search,
-  GraduationCap,
-};
-
-const CATEGORIES = ["All", "AI & ML", "Full-Stack", "Research"];
-
-function MockFrame({ mock }) {
-  return (
-    <div className="w-full max-w-[340px] bg-[#0d0c16] border border-white/10 rounded-[14px] p-4 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6)]">
-      <div className="text-[0.72rem] text-ink-faint mb-2.5 flex gap-1.5 items-center">
-        <span className="w-1.5 h-1.5 rounded-full bg-coral animate-pulse" /> {mock.url}
-      </div>
-      <h4 className="text-[1.05rem] font-display mb-1">{mock.title}</h4>
-      <p className="text-[0.78rem] text-ink-dim mb-3.5">{mock.subtitle}</p>
-      <div className="flex gap-1.5 flex-wrap">
-        {mock.pills.map((p) => (
-          <span
-            key={p}
-            className="text-[0.68rem] bg-white/[0.06] border border-border px-2.5 py-1.5 rounded-lg text-ink-dim"
-          >
-            {p}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function FeaturedCard({ onInspect }) {
-  const p = featuredProject;
-  const tiltRef = useTilt(3);
-
-  return (
-    <div
-      ref={tiltRef}
-      className="reveal bg-gradient-to-br from-violet/[0.08] to-coral/[0.04] border border-border-strong rounded-lg2 p-1.5 mb-8 overflow-hidden transition-all duration-300 hover:border-violet-bright/40 hover:shadow-[0_20px_50px_-15px_rgba(139,92,246,0.2)]"
-    >
-      <div className="grid md:grid-cols-[1.1fr_1fr] bg-bg-card rounded-[calc(22px-8px)] overflow-hidden">
-        <div
-          className="p-9 flex items-center justify-center min-h-[300px]"
-          style={{
-            background:
-              "radial-gradient(60% 60% at 30% 20%, rgba(139,92,246,0.35), transparent 60%), linear-gradient(160deg, #1b1730, #0f0d1c)",
-          }}
-        >
-          <MockFrame mock={p.mock} />
-        </div>
-        <div className="p-8 flex flex-col">
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <span className="text-[0.72rem] font-semibold text-coral-bright uppercase tracking-wider">
-              {p.badge}
-            </span>
-            <button
-              onClick={() => onInspect(p)}
-              className="text-[0.75rem] font-medium text-violet-bright hover:underline inline-flex items-center gap-1"
-            >
-              <Layers size={12} /> Inspect Architecture
-            </button>
-          </div>
-          <h3 className="text-[1.8rem] mb-3 font-bold">{p.name}</h3>
-
-          <div className="mb-3.5">
-            <div className="text-[0.72rem] font-semibold text-ink-faint uppercase tracking-wider mb-1">
-              Problem
-            </div>
-            <div className="text-[0.92rem] text-ink-dim leading-relaxed">{p.problem}</div>
-          </div>
-          <div className="mb-3.5">
-            <div className="text-[0.72rem] font-semibold text-ink-faint uppercase tracking-wider mb-1">
-              Solution
-            </div>
-            <div className="text-[0.92rem] text-ink-dim leading-relaxed">{p.solution}</div>
-          </div>
-
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 my-4">
-            {p.highlights.slice(0, 6).map((h) => (
-              <li key={h} className="text-[0.84rem] text-ink-dim flex gap-2 items-start">
-                <span className="text-emerald-400 font-bold flex-shrink-0">✓</span>
-                {h}
-              </li>
-            ))}
-          </ul>
-
-          <div className="flex flex-wrap gap-2 mb-6">
-            {p.tech.map((t) => (
-              <span
-                key={t}
-                className="text-[0.75rem] font-mono text-ink-dim border border-border px-2.5 py-1 rounded-md bg-white/[0.02]"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex gap-2.5 flex-wrap mt-auto">
-            <a
-              href={p.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded-full font-semibold text-[0.85rem] bg-brand text-bg transition-all hover:-translate-y-0.5 inline-flex items-center gap-1.5"
-            >
-              View on GitHub <ArrowUpRight size={14} />
-            </a>
-            <a
-              href={p.caseStudyUrl}
-              className="px-4.5 py-2.5 rounded-full font-medium text-[0.85rem] border border-border-strong hover:border-violet-bright transition-colors"
-            >
-              Deep Case Study →
-            </a>
-            <button
-              onClick={() => onInspect(p)}
-              className="px-4.5 py-2.5 rounded-full font-medium text-[0.85rem] border border-border-strong hover:border-violet-bright transition-colors"
-            >
-              Quick Specs
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ProjectCard({ project, onInspect }) {
-  const IconComponent = ICON_MAP[project.icon] || Folder;
-  const tiltRef = useTilt(5);
-  const [isHovered, setIsHovered] = useState(false);
-  const [vidRef, setVidRef] = useState(null);
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-    if (vidRef) { vidRef.currentTime = 0; vidRef.play(); }
-  };
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    if (vidRef) { vidRef.pause(); vidRef.currentTime = 0; }
-  };
-
-  return (
-    <div
-      ref={tiltRef}
-      className="reveal bg-bg-card border border-border rounded-md2 flex flex-col transition-all duration-300 hover:border-violet-bright/50 hover:shadow-[0_12px_36px_-10px_rgba(139,92,246,0.2)] group overflow-hidden"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      {/* MP4 Video Preview */}
-      {project.previewVideo && (
-        <div className="relative w-full aspect-video bg-[#0d0c16] overflow-hidden border-b border-border/60">
-          <video
-            ref={setVidRef}
-            src={project.previewVideo}
-            muted
-            playsInline
-            loop
-            preload="metadata"
-            className={`w-full h-full object-cover transition-opacity duration-300 ${
-              isHovered ? "opacity-100" : "opacity-70"
-            }`}
-          />
-          {!isHovered && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-[0.7rem] font-medium text-ink-dim bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-                ▶ Hover to play
-              </span>
-            </div>
-          )}
-          <span className="absolute top-2.5 left-2.5 text-[0.65rem] font-semibold text-violet-bright bg-[#0e0e18]/80 backdrop-blur-sm border border-violet/25 px-2 py-0.5 rounded-full">
-            {project.category}
-          </span>
-        </div>
-      )}
-
-      {/* GIF Preview (fallback) */}
-      {!project.previewVideo && project.previewGif && (
-        <div className="relative w-full aspect-video bg-[#0d0c16] overflow-hidden border-b border-border/60">
-          <img
-            src={project.previewGif}
-            alt={`${project.name} preview`}
-            className={`w-full h-full object-cover transition-opacity duration-300 ${
-              isHovered ? "opacity-100" : "opacity-70"
-            }`}
-          />
-          {!isHovered && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-[0.7rem] font-medium text-ink-dim bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-full border border-white/10">
-                ▶ Hover to preview
-              </span>
-            </div>
-          )}
-          <span className="absolute top-2.5 left-2.5 text-[0.65rem] font-semibold text-violet-bright bg-[#0e0e18]/80 backdrop-blur-sm border border-violet/25 px-2 py-0.5 rounded-full">
-            {project.category}
-          </span>
-        </div>
-      )}
-
-      <div className="p-6 flex flex-col flex-1">
-        <div className="flex items-center justify-between mb-4">
-          <div className="w-[42px] h-[42px] rounded-[10px] flex items-center justify-center text-violet-bright bg-violet/[0.12] border border-violet/25 group-hover:scale-105 transition-transform">
-            <IconComponent size={20} />
-          </div>
-          {project.status && (
-            <span className="text-[0.68rem] text-coral-bright bg-coral/10 border border-coral/25 px-2.5 py-1 rounded-full w-fit">
-              {project.status}
-            </span>
-          )}
-        </div>
-
-        <h4 className="text-[1.2rem] font-bold mb-2">{project.name}</h4>
-        
-        <div className="text-[0.72rem] font-semibold text-ink-faint uppercase tracking-wider mt-1 mb-1">
-          Problem
-        </div>
-        <div className="text-[0.86rem] text-ink-dim leading-relaxed">{project.problem}</div>
-        
-        <div className="text-[0.72rem] font-semibold text-ink-faint uppercase tracking-wider mt-3 mb-1">
-          Solution
-        </div>
-        <div className="text-[0.86rem] text-ink-dim leading-relaxed">{project.solution}</div>
-
-        <div className="flex flex-wrap gap-1.5 my-4">
-          {project.tags.map((t) => (
-            <span key={t} className="text-[0.7rem] font-mono text-ink-faint bg-white/[0.04] px-2 py-1 rounded-md">
-              {t}
-            </span>
-          ))}
-        </div>
-
-        <div className="mt-auto pt-3 border-t border-border/50 flex items-center justify-between gap-3">
-          <button
-            onClick={() => onInspect(project)}
-            className="text-[0.82rem] font-medium text-violet-bright hover:underline inline-flex items-center gap-1"
-          >
-            <Layers size={13} /> View Architecture & Specs
-          </button>
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[0.8rem] font-medium text-ink-faint group-hover:text-ink transition-colors inline-flex items-center gap-1 shrink-0"
-            >
-              GitHub <ArrowUpRight size={13} />
-            </a>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-
 export default function SelectedWork() {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [modalProject, setModalProject] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const ref = useReveal([activeCategory]);
+  const ref = useReveal();
+  const [inspectProject, setInspectProject] = useState(null);
+  const [expandedNotes, setExpandedNotes] = useState({});
 
-  const handleInspect = (proj) => {
-    setModalProject(proj);
-    setIsModalOpen(true);
+  const toggleNote = (id) => {
+    setExpandedNotes((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const filteredProjects = projects.filter((p) => {
-    if (activeCategory === "All") return true;
-    return p.category === activeCategory;
-  });
+  // Curated showcase: 1 Commercial Concept Demo + 3 Grounded Technical Projects
+  const showcaseProjects = [
+    commercialDemoProject,
+    featuredProject,
+    ...projects.filter((p) => p.id === "moodbowl" || p.id === "fake-news"),
+  ];
 
   return (
-    <section id="work" className="py-24 sm:py-28" ref={ref}>
-      <ProjectModal
-        project={modalProject}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-
-      <div className="max-w-wrap mx-auto px-5 sm:px-8">
-        {/* Section Header */}
-        <div className="reveal max-w-[640px] mb-10">
-          <span className="text-[0.8rem] font-semibold text-violet-bright uppercase tracking-wider mb-3.5 block">
-            Selected Work
-          </span>
-          <h2 className="text-[clamp(2rem,3.6vw,2.8rem)] font-bold">
-            A showcase of products I've built and shipped.
-          </h2>
-          <p className="text-ink-dim mt-3.5 text-[1.05rem] leading-relaxed">
-            Spanning civic technology, AI voice interfaces, product analytics, and machine learning pipelines.
-          </p>
+    <section id="work" className="py-20 sm:py-28 relative max-w-5xl mx-auto px-6 sm:px-8" ref={ref}>
+      {/* Section Header */}
+      <div className="reveal mb-14 sm:mb-20">
+        <div className="text-[0.78rem] font-mono text-berry font-semibold uppercase tracking-wider mb-2">
+          Portfolio & Case Studies
         </div>
-
-        {/* Category Filter Pills */}
-        <div className="reveal flex items-center gap-2 mb-8 overflow-x-auto pb-2 scrollbar-none">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-full text-[0.85rem] font-medium transition-all ${
-                activeCategory === cat
-                  ? "bg-brand text-bg font-semibold shadow-[0_0_20px_rgba(139,92,246,0.4)]"
-                  : "bg-white/[0.03] text-ink-dim hover:text-ink border border-border hover:border-border-strong"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Featured Case Study Card */}
-        {(activeCategory === "All" || activeCategory === "Full-Stack") && (
-          <FeaturedCard onInspect={handleInspect} />
-        )}
-
-        {/* Grid of Projects */}
-        <div className="grid sm:grid-cols-2 gap-5">
-          {filteredProjects.map((p) => (
-            <ProjectCard key={p.name} project={p} onInspect={handleInspect} />
-          ))}
-        </div>
+        <h2 className="font-serif text-[clamp(2.4rem,4.6vw,3.6rem)] text-ink font-normal tracking-tight mb-3">
+          Selected Work
+        </h2>
+        <p className="text-[1.05rem] text-ink-muted font-sans font-light max-w-2xl">
+          Commercial web solutions for client businesses alongside genuine machine learning and full-stack software systems.
+        </p>
       </div>
+
+      {/* Alternating Project Showcase */}
+      <div className="space-y-20 sm:space-y-24">
+        {showcaseProjects.map((p, idx) => {
+          const isReverse = idx % 2 === 1;
+          const isCommercial = p.id === "apex-academy";
+
+          return (
+            <div
+              key={p.name}
+              className="reveal grid md:grid-cols-2 gap-8 sm:gap-14 items-center"
+            >
+              {/* Media Preview Column */}
+              <div
+                className={`rounded-2xl overflow-hidden border border-border-rose/50 bg-[#450920] shadow-soft-rose ${
+                  isReverse ? "md:order-2" : "md:order-1"
+                }`}
+              >
+                <div className="relative aspect-video w-full flex items-center justify-center overflow-hidden">
+                  {p.previewVideo ? (
+                    <video
+                      src={p.previewVideo}
+                      muted
+                      loop
+                      autoPlay
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  ) : isCommercial ? (
+                    /* High-fidelity interactive preview card for the Commercial Concept Demo */
+                    <Link
+                      to="/demo/coaching-institute"
+                      className="w-full h-full bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 p-6 sm:p-7 flex flex-col justify-between text-white group hover:opacity-95 transition-all active:scale-[0.99]"
+                    >
+                      <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                        <div className="flex items-center gap-2 text-xs font-mono text-white/70">
+                          <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
+                          <span className="ml-2 text-white/50">apexacademy-demo.com</span>
+                        </div>
+                        <span className="text-[0.72rem] font-mono px-2 py-0.5 rounded bg-blue-600/80 text-white font-medium uppercase">
+                          Live Concept Demo
+                        </span>
+                      </div>
+
+                      <div className="py-4">
+                        <div className="flex items-center gap-2 text-blue-400 text-xs font-mono mb-1.5">
+                          <GraduationCap size={15} />
+                          <span>COACHING & ADMISSIONS PLATFORM</span>
+                        </div>
+                        <div className="font-serif text-2xl sm:text-3xl font-medium text-white mb-2 leading-tight">
+                          Apex Academy
+                        </div>
+                        <p className="text-xs text-white/75 font-sans font-light max-w-sm">
+                          Course catalogs, transparent fee schedules, student reviews, and direct WhatsApp admissions inquiry flow.
+                        </p>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-3 border-t border-white/10 text-xs font-medium text-blue-300 group-hover:text-white transition-colors">
+                        <span>Click to launch interactive sample site</span>
+                        <span className="inline-flex items-center gap-1">
+                          Test Demo <ArrowRight size={13} />
+                        </span>
+                      </div>
+                    </Link>
+                  ) : (
+                    <div className="p-8 text-center text-white/90">
+                      <div className="font-serif text-2xl font-medium mb-1">{p.name}</div>
+                      <div className="text-xs font-mono text-white/60">{p.category}</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Text Description Column */}
+              <div className={`flex flex-col justify-center ${isReverse ? "md:order-1" : "md:order-2"}`}>
+                <div className="text-[0.74rem] font-mono text-berry font-semibold uppercase tracking-wider mb-2">
+                  {p.badge || `${p.category} · ${p.status}`}
+                </div>
+
+                <h3 className="font-serif text-[1.85rem] sm:text-[2.2rem] font-medium text-ink mb-2 leading-snug">
+                  {p.name}
+                </h3>
+
+                <p className="text-[0.98rem] text-ink-muted leading-relaxed mb-4 font-sans font-light">
+                  {p.solution}
+                </p>
+
+                {/* Structured Commercial Note for Business Showcase */}
+                {p.commercialNote && (
+                  <div className="mb-5 p-4 rounded-xl bg-white/95 border border-border-rose/60 text-[0.84rem] text-ink-muted space-y-2 shadow-2xs font-sans">
+                    <div className="text-[0.72rem] font-mono uppercase text-berry font-semibold tracking-wider">
+                      Commercial Note / Business Offer
+                    </div>
+                    <div>
+                      <span className="font-semibold text-ink">Client Goal: </span>
+                      {p.commercialNote.clientGoal}
+                    </div>
+                    <div>
+                      <span className="font-semibold text-ink">Deliverables: </span>
+                      {p.commercialNote.deliverables}
+                    </div>
+                    <div className="text-[0.78rem] text-ink-faint italic pt-1.5 border-t border-border-rose/30">
+                      {p.commercialNote.disclaimer}
+                    </div>
+                  </div>
+                )}
+
+                {/* Progressive Disclosure: Structured Engineering Note for Technical Projects */}
+                {p.engineeringNote && (
+                  <div className="mb-5">
+                    <button
+                      onClick={() => toggleNote(p.id)}
+                      className="inline-flex items-center gap-1.5 text-[0.76rem] font-mono font-semibold uppercase tracking-wider text-berry hover:text-ink transition-colors py-1 px-2.5 rounded-lg bg-blush/15 border border-blush/35 active:scale-[0.97]"
+                    >
+                      <span>Engineering Breakdown</span>
+                      <ChevronDown
+                        size={13}
+                        className={`transition-transform duration-200 ${
+                          expandedNotes[p.id] ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+
+                    {expandedNotes[p.id] && (
+                      <div className="mt-2.5 p-4 rounded-xl bg-white/95 border border-border-rose/60 text-[0.84rem] text-ink-muted space-y-2 shadow-2xs font-sans">
+                        <div>
+                          <span className="font-semibold text-ink">Challenge: </span>
+                          {p.engineeringNote.challenge}
+                        </div>
+                        <div>
+                          <span className="font-semibold text-ink">Decision: </span>
+                          {p.engineeringNote.decision}
+                        </div>
+                        <div>
+                          <span className="font-semibold text-ink">Verification: </span>
+                          {p.engineeringNote.verification}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Comma-separated tech stack */}
+                <div className="text-[0.82rem] font-mono text-ink-faint mb-5">
+                  <span className="text-ink-muted font-medium">Stack: </span>
+                  {(p.tech || p.tags || []).join(", ")}
+                </div>
+
+                {/* Direct Action Links with Tactile Active Compression */}
+                <div className="flex items-center gap-5 flex-wrap text-[0.88rem] font-medium">
+                  {isCommercial ? (
+                    <>
+                      <Link
+                        to="/demo/coaching-institute"
+                        className="text-berry hover:text-ink inline-flex items-center gap-1 font-semibold transition-all active:scale-[0.97]"
+                      >
+                        Launch Live Demo <ArrowUpRight size={14} />
+                      </Link>
+                      <button
+                        onClick={() =>
+                          document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+                        }
+                        className="text-ink-muted hover:text-ink inline-flex items-center gap-1 transition-all active:scale-[0.97]"
+                      >
+                        Inquire for Your Website →
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      {p.demoUrl && (
+                        <a
+                          href={p.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-berry hover:text-ink inline-flex items-center gap-1 font-semibold transition-all active:scale-[0.97]"
+                        >
+                          Live Demo <ArrowUpRight size={14} />
+                        </a>
+                      )}
+                      {p.caseStudyUrl && (
+                        <Link
+                          to={p.caseStudyUrl}
+                          className="text-berry hover:text-ink inline-flex items-center gap-1 font-semibold transition-all active:scale-[0.97]"
+                        >
+                          Case Study <ArrowRight size={14} />
+                        </Link>
+                      )}
+                      {p.githubUrl && (
+                        <a
+                          href={p.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-ink-muted hover:text-ink inline-flex items-center gap-1 transition-all active:scale-[0.97]"
+                        >
+                          GitHub <ArrowUpRight size={14} />
+                        </a>
+                      )}
+                      <button
+                        onClick={() => setInspectProject(p)}
+                        className="text-ink-muted hover:text-ink inline-flex items-center gap-1 transition-all active:scale-[0.97]"
+                      >
+                        Quick Specs →
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Quick Specs Modal */}
+      <ProjectModal
+        project={inspectProject}
+        isOpen={Boolean(inspectProject)}
+        onClose={() => setInspectProject(null)}
+      />
     </section>
   );
 }
